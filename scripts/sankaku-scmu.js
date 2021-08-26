@@ -85,6 +85,7 @@ function imageLoadHook(instandImageLoad, pageUpdateFix) {
     observer.observe(targetNode, config);
 }
 
+/*
 function customTagHighlights() {}
 
 function customTresholds() {}
@@ -96,6 +97,7 @@ function customModeColors() {}
 function userFollowing() {}
 
 function tagTracker() {}
+*/
 
 // Loader
 if (localStorage.getItem('scmuenabled')) {
