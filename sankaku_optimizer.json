@@ -1,0 +1,25 @@
+[{
+        "id": 1,
+        "priority": 1,
+        "action": {
+            "type": "block"
+        },
+        "condition": {
+            "urlFilter": "otaserve.net",
+            "domains": ["chan.sankakucomplex.com"],
+            "resourceTypes": ["script", "other"]
+        }
+    },
+    {
+        "id": 2,
+        "priority": 1,
+        "action": {
+            "type": "block"
+        },
+        "condition": {
+            "urlFilter": "chan.sankakucomplex.com*s.js",
+            "domains": ["chan.sankakucomplex.com"],
+            "resourceTypes": ["script"]
+        }
+    }
+]

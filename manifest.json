@@ -1,0 +1,77 @@
+{
+    "name": "Sankaku Complex X",
+    "description": "Addon for the old Sankaku Complex Website",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "declarative_net_request": {
+        "rule_resources": [{
+            "id": "sankaku_optimizer",
+            "enabled": true,
+            "path": "sankaku_optimizer.json"
+        }]
+    },
+    "permissions": ["storage", "tabs", "declarativeNetRequest"],
+    "options_page": "html/options.html",
+    "action": {
+        "default_popup": "html/menu.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png"
+        }
+    },
+    "content_scripts": [{
+        "matches": [
+            "https://chan.sankakucomplex.com/*",
+            "https://www.sankakucomplex.com/*",
+            "https://rule34.paheal.net/post/*",
+            "https://peach.paheal.net/*",
+            "https://holly.paheal.net/*",
+            "https://rule34.xxx/index.php?page=post&s=view*",
+            "https://img.rule34.xxx/*",
+            "https://wimg.rule34.xxx/*"
+        ],
+        "js": ["scripts/cashe-handler.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*",
+            "https://www.sankakucomplex.com/*",
+            "https://rule34.paheal.net/post/*",
+            "https://peach.paheal.net/*",
+            "https://holly.paheal.net/*",
+            "https://rule34.xxx/index.php?page=post&s=view*",
+            "https://img.rule34.xxx/*",
+            "https://wimg.rule34.xxx/*"
+        ],
+        "js": ["scripts/sankaku-scsi.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*"
+        ],
+        "js": ["scripts/sankaku-scar.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*"
+        ],
+        "js": ["scripts/sankaku-scam.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*"
+        ],
+        "js": ["scripts/sankaku-scplo.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*"
+        ],
+        "js": ["scripts/sankaku-scmu.js"]
+    }],
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png",
+        "512": "icons/icon512.png"
+    }
+}

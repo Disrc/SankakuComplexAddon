@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Settings | Sankaku Channel - Anime, manga & game related images & videos</title>
+    <meta name="description" content="Options Page for Sankaku CompleX">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+        html {
+            border: 0.1px solid rgb(118, 118, 118);
+            border-bottom: hidden;
+            height: 200%;
+        }
+
+        body {
+            background-color: #222;
+            color: #e6e6e6;
+            font-family: 'Meiryo', 'Hiragino Kaku Gothic Pro W3', 'Arial', 'Helvetica Neue', 'sans-serif';
+            font-size: 100%;
+            font-weight: bold;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #222;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgb(118, 118, 118);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(99, 98, 98);
+        }
+
+        .container {
+            margin-top: 0.9px;
+        }
+
+        .option-desc {
+            color: #a09e9e;
+        }
+
+        .notice {
+            font-style: italic;
+            opacity: 0.2;
+        }
+
+        h1,
+        a {
+            text-decoration: none;
+            border-bottom: 1px solid rgb(118, 118, 118);
+            margin-bottom: 0.86em;
+            font-weight: bolder;
+            color: #FF761C;
+            margin-top: 0;
+        }
+
+        h2 {
+            border-bottom: 1px solid rgb(118, 118, 118);
+            margin-bottom: 0.76em;
+            margin-top: 1em;
+        }
+
+        select {
+            color: #FF761C;
+            font-weight: bold;
+            background-color: #222;
+        }
+
+        input {
+            color: #FF761C;
+            font-weight: bold;
+            background-color: #222;
+            border: 1px solid rgb(118, 118, 118);
+            width: 85px;
+        }
+
+        select option {
+            color: #FF761C;
+            font-weight: bold;
+        }
+
+
+        #state {
+            font-weight: bold;
+        }
+
+        button {
+            border-radius: 1px;
+            padding: 4px 6px;
+            text-align: center;
+            cursor: pointer;
+            color: #FF761C;
+            font-weight: bold;
+            border: 1px solid rgb(118, 118, 118);
+            background-color: #222;
+        }
+
+        button:hover {
+            background-color: rgb(29, 29, 29) !important;
+        }
+
+        button:active {
+            background-color: rgb(20, 20, 20) !important;
+        }
+
+        .status {
+            font-size: 75%;
+            color: rgb(104, 100, 100);
+        }
+
+        .checkmark {
+            color: #14bb3d;
+        }
+
+        .cross {
+            color: #bb1414;
+        }
+
+        .sub {
+            color: rgb(185, 200, 201);
+        }
+
+        #status {
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1><a href="https://chan.sankakucomplex.com/">Sankaku Complex X</a></h1>
+
+    <h2>SCAR - Sankaku Complex Ad Remover</h2>
+    <div class='notice'>
+        » Sankaku Complex X by default blocks ad delivery scripts to improve load times;
+    </div>
+    <div id="SCAR-Options">
+    </div>
+
+    <h2>SCAM - Sankaku Complex Appearance Modifier</h2>
+    <div class='notice'>
+        » Appearance modifications may have a small delay due to script injection;
+    </div>
+    <div id="SCAM-Options">
+    </div>
+
+    <h2>SCPLO - Sankaku Complex Page Load Optimizer</h2>
+    <div class='notice'>
+        » No additional info;
+    </div>
+    <div id="SCPLO-Options">
+    </div>
+
+    <h2>SCMU - Sankaku Complex Modified Updater</h2>
+    <div class='notice'>
+        » No additional info;
+    </div>
+    <div id="SCMU-Options">
+    </div>
+
+    <h2>SCSI - Sankaku Complex Site Integrations</h2>
+    <div class='notice'>
+        » No additional info;
+    </div>
+    <div id="SCSI-Options">
+    </div>
+
+    <br>
+    <button id="save">Update</button>
+    <div id="status" style="white-space: break-spaces;"></div>
+    <script src="../js/options.js"></script>
+</body>
+
+</html>
