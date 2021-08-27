@@ -36,18 +36,6 @@
         "js": ["scripts/cashe-handler.js"]
     }, {
         "matches": [
-            "https://chan.sankakucomplex.com/*",
-            "https://www.sankakucomplex.com/*",
-            "https://rule34.paheal.net/post/*",
-            "https://peach.paheal.net/*",
-            "https://holly.paheal.net/*",
-            "https://rule34.xxx/index.php?page=post&s=view*",
-            "https://img.rule34.xxx/*",
-            "https://wimg.rule34.xxx/*"
-        ],
-        "js": ["scripts/sankaku-scsi.js"]
-    }, {
-        "matches": [
             "https://chan.sankakucomplex.com/*"
         ],
         "js": ["scripts/sankaku-scar.js"]
@@ -66,6 +54,18 @@
             "https://chan.sankakucomplex.com/*"
         ],
         "js": ["scripts/sankaku-scmu.js"]
+    }, {
+        "matches": [
+            "https://chan.sankakucomplex.com/*",
+            "https://www.sankakucomplex.com/*",
+            "https://rule34.paheal.net/post/*",
+            "https://peach.paheal.net/*",
+            "https://holly.paheal.net/*",
+            "https://rule34.xxx/index.php?page=post&s=view*",
+            "https://img.rule34.xxx/*",
+            "https://wimg.rule34.xxx/*"
+        ],
+        "js": ["scripts/sankaku-scsi.js"]
     }],
     "icons": {
         "16": "icons/icon16.png",
