@@ -15,3 +15,6 @@ Note: If anyone finds this with an actual developer account feel free to upload 
 ![Two](https://user-images.githubusercontent.com/89601602/131110627-ce340184-93c9-457e-b8f2-9507d04a94cd.PNG)
 ![Three](https://user-images.githubusercontent.com/89601602/131110725-1b550e0b-6e6e-49a0-8939-b50e835a0936.PNG)
 ![Four](https://user-images.githubusercontent.com/89601602/131110625-0162f2d8-40a8-4105-b1d3-0774474a1504.PNG)
+
+### Avarage Execution Time
+((0.2 + 0.4 + 1.8 + 0.7 + 2.6 + 0.1) + (0.3 + 0.6 + 2 + 1.4 + 1.4 + 0) + (0.3 + 0.5 + 1.6 + 1.3 + 0.6 + 0) + (0.3 + 0.6 + 2 + 1.4 + 1.4 + 0)) / 4 = 5.375 ms
