@@ -11,4 +11,3 @@ Note: If anyone finds this with an actual developer account feel free to upload 
 - Press enter and wait for it to finish loading
 
 ## Script Execution Metrics
-![Metrics](https://user-images.githubusercontent.com/89601602/131109848-77658c0a-f147-4298-b28c-cdd1b641d091.PNG)
