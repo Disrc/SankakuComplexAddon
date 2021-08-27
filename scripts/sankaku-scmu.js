@@ -63,6 +63,7 @@ function imageLoadHook(instandImageLoad, pageUpdateFix) {
     <span class="current">${page}</span>
     <a href="/?page=${page + 1}">&gt;&gt;</a>`;
 
+    let tryPageLoadFix = true;
     handleChildren(targetNode.children[targetNode.children.length - 4], instandImageLoad);
     const callback = function(mutationsList /*, observer*/ ) {
         for (const mutation of mutationsList) {
@@ -74,6 +75,11 @@ function imageLoadHook(instandImageLoad, pageUpdateFix) {
                         pag.children[0].href = pag.children[0].href.replaceAll(`?page=${(page - 1 > 0) ? (page - 1) : page}`, `?page=${page}`);
                         pag.children[2].href = pag.children[2].href.replaceAll(`?page=${page + 1}`, `?page=${page + 2}`);
                         pag.children[1].innerText = ++page;
+                        if (tryPageLoadFix) {
+                            tryPageLoadFix = false;
+                            console.log('test');
+                            document.body.removeChild(document.getElementById('pageloadfix'));
+                        }
                     }
                 }
             }

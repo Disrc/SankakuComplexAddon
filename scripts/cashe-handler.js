@@ -20,6 +20,9 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
             'blockpreviews',
             'clickableimages',
             'cursorstyle',
+            'pageloadoffset',
+            'pageloadfix',
+            'betterscrollbar',
 
             // SCAR
             'scarenabled',

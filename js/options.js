@@ -104,6 +104,12 @@ registerNewOption('SCAM', 'modifynavbar', ['true', 'false'], 'Modify Navbar', 'E
 registerNewOption('SCAM', 'blockpreviews', ['true', 'false'], 'Block Previews', 'Blocks the Popular Previews;', true);
 registerNewOption('SCAM', 'clickableimages', ['false', 'true'], 'Clickable Images', 'Makes images Clickable (View Source);', true);
 registerNewOption('SCAM', 'cursorstyle', ['default', 'pointer'], 'Cursor Style', 'Changes Cursor Style for Images;', true);
+registerNewOption('SCAM', 'pageloadfix', ['true', 'false'], 'Page Load Fix', 'Fixes Auto Paging not working on small window sizes;', true);
+registerNewOption('SCAM', 'pageloadoffset', [500], 'Page Load Fix Offset', 'Offset value for page load fix to active [Default: 24.5"];', true, 'sub', 'input', {
+    'type': 'number',
+    'min': '0'
+});
+registerNewOption('SCAM', 'betterscrollbar', ['true', 'false'], 'Better Scrollbar', 'Makes the scrollbar look better;', true);
 
 // !> SCPLO
 registerNewOption('SCPLO', 'scploenabled', ['true', 'false'], 'Enabled', 'Enables the addon;', true);
