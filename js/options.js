@@ -156,11 +156,11 @@ registerNewOption('SCMU', 'customvideovolume', [0], 'Custom Video Volume', 'Sets
 });
 registerNewOption('SCMU', 'imageloadhook', ['true', 'false'], 'Image Load Hook', 'Allows the extensions to hook onto the image loader;', true);
 registerNewOption('SCMU', 'pageupdatefix', ['true', 'false'], 'Page Update Fix', 'Fixes current page when disabling auto paging', true, 'sub');
-registerNewOption('SCMU', 'instandimageload', ['false', 'true'], 'Instand Image Load', 'Enables Instand Image Loading;', true, 'sub');
+registerNewOption('SCMU', 'instantimageload', ['false', 'true'], 'Instant Image Load', 'Enables Instant Image Loading;', true, 'sub');
 /*
 registerNewOption('SCMU', 'customimagehighlights', ['false', 'true'], 'Custom Image Highlights', 'Enables Custom Image Highlights;', true, 'sub');
 registerNewOption('SCMU', 'customtaghighlights', ['false', 'true'], 'Custom Tag Highlights', 'Enables Custom Tag Highlights;', false);
-registerNewOption('SCMU', 'customtresholds', ['false', 'true'], 'Custom Tresholds', 'Enables Custom Tresholds;', false);
+registerNewOption('SCMU', 'customthresholds', ['false', 'true'], 'Custom Thresholds', 'Enables Custom Thresholds;', false);
 registerNewOption('SCMU', 'customshortcuts', ['false', 'true'], 'Custom Shortcuts', 'Enables Custom Shortcuts;', false);
 registerNewOption('SCMU', 'custommodecolors', ['false', 'true'], 'Custom Mode Colors', 'Enables Custom Mode Colors;', false);
 registerNewOption('SCMU', 'userfollowing', ['false', 'true'], 'Enable User Following', 'Enables User Following Functionality;', false);

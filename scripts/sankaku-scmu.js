@@ -39,15 +39,15 @@ function autoMuteVideo(customVideoVolume) {
     }
 }
 
-function handleChildren(conn, instandImageLoad) {
-    if (instandImageLoad) {
+function handleChildren(conn, instantImageLoad) {
+    if (instantImageLoad) {
         for (let i = 0; i < conn.children.length; i++) {
             conn.children[i].style.display = 'block';
         }
     }
 }
 
-function imageLoadHook(instandImageLoad, pageUpdateFix) {
+function imageLoadHook(instantImageLoad, pageUpdateFix) {
     const targetNode = document.getElementsByClassName('content')[0];
     const pag = document.getElementsByClassName('pagination')[0];
     if (!pag) {
@@ -64,13 +64,13 @@ function imageLoadHook(instandImageLoad, pageUpdateFix) {
     <a href="/?page=${page + 1}">&gt;&gt;</a>`;
 
     let tryPageLoadFix = true;
-    handleChildren(targetNode.children[targetNode.children.length - 4], instandImageLoad);
+    handleChildren(targetNode.children[targetNode.children.length - 4], instantImageLoad);
     const callback = function(mutationsList /*, observer*/ ) {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 let target = targetNode.children[targetNode.children.length - 2];
                 if (target.classList.contains('content-page')) {
-                    handleChildren(targetNode.children[targetNode.children.length - 2], instandImageLoad);
+                    handleChildren(targetNode.children[targetNode.children.length - 2], instantImageLoad);
                     if (pageUpdateFix) {
                         pag.children[0].href = pag.children[0].href.replaceAll(`?page=${(page - 1 > 0) ? (page - 1) : page}`, `?page=${page}`);
                         pag.children[2].href = pag.children[2].href.replaceAll(`?page=${page + 1}`, `?page=${page + 2}`);
@@ -93,7 +93,7 @@ function imageLoadHook(instandImageLoad, pageUpdateFix) {
 /*
 function customTagHighlights() {}
 
-function customTresholds() {}
+function customThresholds() {}
 
 function customShortcuts() {}
 
@@ -108,7 +108,7 @@ function tagTracker() {}
 if (localStorage.getItem('scmuenabled')) {
     let customVideoVolume = (localStorage.getItem('customvideovolume') / 100);
     let noFavoriteHover = (localStorage.getItem('nofavoritehover')) ? true : false;
-    let instandImageLoad = (localStorage.getItem('instandimageload')) ? true : false;
+    let instantImageLoad = (localStorage.getItem('instantimageload')) ? true : false;
     // let customImageHightlights = (localStorage.getItem('customimagehighlights')) ? true : false;
     let pageUpdateFix = (localStorage.getItem('pageupdatefix')) ? true : false;
 
@@ -119,14 +119,14 @@ if (localStorage.getItem('scmuenabled')) {
         autoMuteVideo(customVideoVolume);
     }
     if (localStorage.getItem('imageloadhook')) {
-        imageLoadHook(instandImageLoad, pageUpdateFix);
+        imageLoadHook(instantImageLoad, pageUpdateFix);
     }
     /*
     if (localStorage.getItem('customtaghighlights')) {
         customTagHighlights();
     }
-    if (localStorage.getItem('customtresholds')) {
-        customTresholds();
+    if (localStorage.getItem('customthresholds')) {
+        customThresholds();
     }
     if (localStorage.getItem('customshortcuts')) {
         customShortcuts();
