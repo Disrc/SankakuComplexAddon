@@ -50,17 +50,17 @@ chrome.runtime.onMessage.addListener(function(message) {
                 });
             }
         });
-    } else if (message.includes('cashed')) {
+    } else if (message.includes('cached')) {
         chrome.tabs.query({
-            url: 'https://chan.sankakucomplex.com/?cashe'
+            url: 'https://chan.sankakucomplex.com/?cache'
         }, function(tabs) {
             for (let i = 0; i < tabs.length; i++) {
                 chrome.tabs.remove(tabs[i].id);
             }
         });
-    } else if (message.includes('cashe')) {
+    } else if (message.includes('cache')) {
         chrome.tabs.create({
-            url: 'https://chan.sankakucomplex.com/?cashe',
+            url: 'https://chan.sankakucomplex.com/?cache',
             active: false,
             selected: false
         });

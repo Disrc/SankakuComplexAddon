@@ -194,7 +194,7 @@ function saveOptions() {
         }
     }
     chrome.storage.sync.set(save, function() {});
-    resetCashe();
+    resetcache();
 }
 
 function restoreOptions() {
@@ -218,11 +218,11 @@ var displayActive = false;
 var allowErase = false;
 var updateMulti = 5;
 
-function resetCashe() {
+function resetcache() {
     if (!displayActive) {
         allowErase = false;
         showUpdate()
-        chrome.runtime.sendMessage('cashe');
+        chrome.runtime.sendMessage('cache');
         setTimeout(() => {
             allowErase = true;
         }, (100 * updateMulti) * 5);

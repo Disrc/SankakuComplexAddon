@@ -33,7 +33,7 @@
             "https://img.rule34.xxx/*",
             "https://wimg.rule34.xxx/*"
         ],
-        "js": ["scripts/cashe-handler.js"]
+        "js": ["scripts/cache-handler.js"]
     }, {
         "matches": [
             "https://chan.sankakucomplex.com/*"

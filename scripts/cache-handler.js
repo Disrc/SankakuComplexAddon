@@ -2,7 +2,7 @@
 "use strict";
 
 if (window.location.href.includes('chan.sankakucomplex.com')) {
-    if (window.location.href.includes('?cashe') || !localStorage.getItem('cashed')) {
+    if (window.location.href.includes('?cache') || !localStorage.getItem('cached')) {
         window.onbeforeunload = function() {
             return true;
         };
@@ -79,9 +79,9 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
                     localStorage.setItem(v, val[v]);
                 }
 
-                localStorage.setItem('cashed', true);
-                if (window.location.href.includes('?cashe')) {
-                    chrome.runtime.sendMessage('cashed');
+                localStorage.setItem('cached', true);
+                if (window.location.href.includes('?cache')) {
+                    chrome.runtime.sendMessage('cached');
                 } else {
                     chrome.runtime.sendMessage('reload');
                 }
