@@ -2,9 +2,9 @@
 
 Note: If anyone finds this with an actual developer account feel free to upload it
 ## How to install
-- Go to the Extensions Page (chrome://extensions)
-- Enable Developer Mode
-- Unzip the source code
-- Click on 'Load unpacked'
-- Select the folder containing the 'manifest.json' file
-- Press enter and wait for it to finish loading
+ - Go to the Extensions Page (chrome://extensions)
+ - Enable Developer Mode
+ - Unzip the source code
+ - Click on 'Load unpacked'
+ - Select the folder containing the 'manifest.json' file
+ - Press enter and wait for it to finish loading
