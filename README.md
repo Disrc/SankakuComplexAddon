@@ -11,6 +11,7 @@ Note: If anyone finds this with an actual developer account feel free to upload 
 - Press enter and wait for it to finish loading
 
 ## Script Execution Metrics
-![Metrics-1_2x](https://user-images.githubusercontent.com/89601602/131110388-956546f6-5423-415f-9d9c-8cafa290f383.PNG)
-![Metrics-2_2x](https://user-images.githubusercontent.com/89601602/131110392-f78e04fb-b210-48e5-8472-ae0f271990be.PNG)
-![Metrics-3_2x](https://user-images.githubusercontent.com/89601602/131110390-d3c92409-275b-4b76-bb71-6c3b14f2d4a6.PNG)
+![Metrics-1](https://user-images.githubusercontent.com/89601602/131110432-3e3ada2b-86fc-48f1-9c17-540396d7fe0a.PNG)
+![Metrics-3](https://user-images.githubusercontent.com/89601602/131110437-23cebf12-09c3-439e-80be-0428bc98e511.PNG)
+![Metrics-2](https://user-images.githubusercontent.com/89601602/131110439-5e3fcc00-8e42-4f53-b8c9-8563ceee0513.PNG)
+
