@@ -55,7 +55,7 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
             'imageclicksize',
             'revertonclick',
             'tabopeningmode',
-            'fasterpaging',
+            'optimizedpaging',
             'alternativeimagescaling',
             'preventbackgroundcolorchange',
             'downloadmode',
