@@ -9,3 +9,6 @@ Note: If anyone finds this with an actual developer account feel free to upload 
 - Click on 'Load unpacked'
 - Select the folder containing the 'manifest.json' file
 - Press enter and wait for it to finish loading
+
+## Script Execution Metrics
+![image](https://user-images.githubusercontent.com/89601602/131109630-18752fd0-da7c-4148-b0ef-5cca99729f02.png)
