@@ -139,7 +139,7 @@ registerNewOption('SCPLO', 'imageclicksize', [-1], 'Image Click Size', 'Changes 
     'max': '5000'
 });
 registerNewOption('SCPLO', 'revertonclick', ['false', 'true'], 'Revert On Click', 'Reverts Image Size on [2nd] Click;', true, 'sub');
-registerNewOption('SCPLO', 'preventbackgroundcolorchange', ['false', 'true'], 'Prevent Background Color Change', 'Prevents the Background Color Change', true); // TODO: Move to SCMU;
+registerNewOption('SCPLO', 'preventbackgroundcolorchange', ['true', 'false'], 'Prevent Background Color Change', 'Prevents the Background Color Change', true); // TODO: Move to SCMU;
 registerNewOption('SCPLO', 'downloadmode', ['true', 'false'], 'Download Mode', 'New mode for downloading full res images;', true);
 registerNewOption('SCPLO', 'backgroundmode', ['true', 'false'], 'Background Mode', 'New mode for opening posts in the background;', true);
 registerNewOption('SCPLO', 'tabopeningmode', ['closeright', 'closeleft', 'farright', 'farleft'], 'Tab Opening Mode', 'Defines where new background mode tabs will be opened', true, 'sub');
