@@ -59,9 +59,9 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
     };
 
     let page = Number(document.getElementsByClassName('current')[0].innerText);
-    pag.innerHTML = `<a href="/?page=${(page - 1 > 0) ? (page - 1) : page}">&lt;&lt;</a>
+    pag.innerHTML = `<a href="./?page=${(page - 1 > 0) ? (page - 1) : page}">&lt;&lt;</a>
     <span class="current">${page}</span>
-    <a href="/?page=${page + 1}">&gt;&gt;</a>`;
+    <a href="./?page=${page + 1}">&gt;&gt;</a>`;
 
     let tryPageLoadFix = true;
     handleChildren(targetNode.children[targetNode.children.length - 4], instantImageLoad);
