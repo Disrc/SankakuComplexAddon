@@ -6,8 +6,8 @@ var removeFromFavorites;
 
 function alternateFavorite(noFavoriteHover) {
     if (window.location.href.includes('post/show')) {
-        addToFavorites = document.getElementById('add-to-favs');
-        removeFromFavorites = document.getElementById('remove-from-favs');
+        addToFavorites = document.querySelector('#add-to-favs');
+        removeFromFavorites = document.querySelector('#remove-from-favs');
 
         if (noFavoriteHover) {
             addToFavorites.children[0].classList.remove('favoriteIcon');
@@ -17,23 +17,23 @@ function alternateFavorite(noFavoriteHover) {
         }
 
         if (addToFavorites) {
-            addToFavorites.onclick = () => {
+            addToFavorites.addEventListener('click', () => {
                 addToFavorites.style.display = 'none';
                 removeFromFavorites.style.display = '';
-            }
+            })
         }
 
         if (removeFromFavorites) {
-            removeFromFavorites.onclick = () => {
+            removeFromFavorites.addEventListener('click', () => {
                 addToFavorites.style.display = '';
                 removeFromFavorites.style.display = 'none';
-            }
+            })
         }
     }
 }
 
 function autoMuteVideo(customVideoVolume) {
-    let post = document.getElementById('image');
+    let post = document.querySelector('#image');
     if (post && post.tagName === 'VIDEO') {
         post.volume = customVideoVolume || 0;
     }
@@ -41,15 +41,15 @@ function autoMuteVideo(customVideoVolume) {
 
 function handleChildren(conn, instantImageLoad) {
     if (instantImageLoad) {
-        for (let i = 0; i < conn.children.length; i++) {
-            conn.children[i].style.display = 'block';
+        for (let index = 0; index < conn.children.length; index++) {
+            conn.children[index].style.display = 'block';
         }
     }
 }
 
 function imageLoadHook(instantImageLoad, pageUpdateFix) {
-    const targetNode = document.getElementsByClassName('content')[0];
-    const pag = document.getElementsByClassName('pagination')[0];
+    const targetNode = document.querySelectorAll('.content')[0];
+    const pag = document.querySelectorAll('.pagination')[0];
     if (!pag) {
         return;
     }
@@ -58,7 +58,7 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
         childList: true
     };
 
-    let page = Number(document.getElementsByClassName('current')[0].innerText);
+    let page = Number(document.querySelectorAll('.current')[0].textConent);
     pag.innerHTML = `<a href="./?page=${(page - 1 > 0) ? (page - 1) : page}">&lt;&lt;</a>
     <span class="current">${page}</span>
     <a href="./?page=${page + 1}">&gt;&gt;</a>`;
@@ -74,11 +74,11 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
                     if (pageUpdateFix) {
                         pag.children[0].href = pag.children[0].href.replaceAll(`?page=${(page - 1 > 0) ? (page - 1) : page}`, `?page=${page}`);
                         pag.children[2].href = pag.children[2].href.replaceAll(`?page=${page + 1}`, `?page=${page + 2}`);
-                        pag.children[1].innerText = ++page;
+                        pag.children[1].textContent = ++page;
                         if (tryPageLoadFix) {
                             tryPageLoadFix = false;
                             console.log('test');
-                            document.body.removeChild(document.getElementById('pageloadfix'));
+                            document.querySelector('#pageloadfix').remove();
                         }
                     }
                 }

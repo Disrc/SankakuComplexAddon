@@ -73,10 +73,9 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
             'chansiteredirect'
         ];
         chrome.storage.sync.get(fetch,
-            function(val) {
-                for (let i = 0; i < fetch.length; i++) {
-                    const v = fetch[i];
-                    localStorage.setItem(v, val[v]);
+            function(value) {
+                for (const v of fetch) {
+                    localStorage.setItem(v, value[v]);
                 }
 
                 localStorage.setItem('cached', true);
@@ -99,10 +98,9 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
         'chansiteredirect'
     ];
     chrome.storage.sync.get(fetch,
-        function(val) {
-            for (let i = 0; i < fetch.length; i++) {
-                const v = fetch[i];
-                localStorage.setItem(v, val[v]);
+        function(value) {
+            for (const v of fetch) {
+                localStorage.setItem(v, value[v]);
             }
         }
     );

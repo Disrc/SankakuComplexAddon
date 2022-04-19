@@ -2,14 +2,26 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2022": true
     },
-    "extends": "eslint:recommended",
+    "plugins": [
+        "unicorn",
+        "sonarjs"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:unicorn/recommended",
+        "plugin:sonarjs/recommended"
+    ],
     "parserOptions": {
-        "ecmaVersion": 12,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "sonarjs/no-duplicate-string": "off",
+        "unicorn/prefer-module": "off",
+        "sonarjs/cognitive-complexity": "off",
+        "unicorn/prefer-add-event-listener": "off",
     }
 };

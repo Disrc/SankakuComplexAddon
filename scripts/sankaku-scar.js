@@ -3,49 +3,49 @@
 // Modules
 function blockSearchAds() {
     setInterval(function() {
-        let targets = document.getElementsByClassName("scad-i")
-        for (var i = 0; i < targets.length; i++) {
-            targets.item(i).parentNode.removeChild(targets.item(i));
+        let targets = document.querySelectorAll(".scad-i")
+        for (var index = 0; index < targets.length; index++) {
+            targets.item(index).remove();
         }
 
-        targets = document.getElementsByClassName("scad")
-        for (var j = 0; j < targets.length; j++) {
-            targets.item(j).parentNode.removeChild(targets.item(j));
+        targets = document.querySelectorAll(".scad")
+        for (var index_ = 0; index_ < targets.length; index_++) {
+            targets.item(index_).remove();
         }
     }, 100);
 }
 
 function blockSidebarAds() {
-    let targets = document.getElementsByTagName("ins")
+    let targets = document.querySelectorAll("ins")
     for (var k = 0; k < targets.length; k++) {
-        targets.item(k).parentNode.removeChild(targets.item(k));
+        targets.item(k).remove();
+    }
+}
+
+function run() {
+    let popup = document.querySelector("#sank-prestitial");
+    if (popup) {
+        popup.remove();
     }
 }
 
 function blockPopupAds() {
-    function run() {
-        let popup = document.getElementById("sank-prestitial");
-        if (popup) {
-            popup.parentNode.removeChild(popup);
-        }
-    }
-
     setTimeout(run, 0);
     setTimeout(run, 10);
     setTimeout(run, 100);
 }
 
 function blockMediaAds() {
-    let media = document.getElementById("share");
+    let media = document.querySelector("#share");
     if (media) {
-        media.parentNode.removeChild(media);
+        media.remove();
     }
 }
 
 function blockNewsTicker() {
-    let news = document.getElementById('news-ticker');
+    let news = document.querySelector('#news-ticker');
     if (news) {
-        news.parentNode.removeChild(news);
+        news.remove();
     }
 }
 

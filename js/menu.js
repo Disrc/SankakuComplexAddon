@@ -5,7 +5,7 @@ chrome.tabs.query({
     active: true,
     currentWindow: true
 }).then((tabs) => {
-    if (!tabs.length) return;
+    if (tabs.length === 0) return;
     if (tabs[0].url.includes('chan.sankakucomplex')) {
         state.style.color = '#FF761C';
         state.textContent = 'Active';

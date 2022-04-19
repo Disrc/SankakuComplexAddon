@@ -1,0 +1,11 @@
+body {
+   background-color: #222;
+   color: #e6e6e6;
+   font-family: Meiryo, 'Hiragino Kaku Gothic Pro W3', Arial, 'Helvetica Neue', sans-serif;
+   font-size: 74%;
+   font-weight: bold;
+}
+
+#state {
+   font-weight: bold;
+}

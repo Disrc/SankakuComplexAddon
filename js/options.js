@@ -3,54 +3,42 @@
 
 var registeredOptions = [];
 
-window.onresize = updateScale;
-window.onload = updateScale;
+window.addEventListener('resize', updateScale);
+window.addEventListener('load', updateScale);
 
 function updateScale() {
-    if (window.innerWidth / 22 > 70) {
-        document.body.style.fontSize = `${window.innerWidth / 22}%`;
-    } else {
-        document.body.style.fontSize = `70%`;
-    }
+    document.body.style.fontSize = window.innerWidth / 22 > 70 ? `${window.innerWidth / 22}%` : `70%`;
 }
 
 function buildOptionList(id, inputs, status) {
     let optionList;
-    if (status) {
-        optionList = `<select id=${id}>`;
-    } else {
-        optionList = `<select id=${id} disabled = "true>"`;
-    }
+    optionList = status ? `<select id=${id}>` : `<select id=${id} disabled = "true>"`;
 
-    for (let i = 0; i < inputs.length; i++) {
-        optionList += `<option value="${inputs[i].toLowerCase()}" id="${id}-${inputs[i].toLowerCase()}">${inputs[i]}</option>`;
+    for (const input of inputs) {
+        optionList += `<option value="${input.toLowerCase()}" id="${id}-${input.toLowerCase()}">${input}</option>`;
     }
     optionList += '</select>';
     return optionList;
 }
 
-function buildInputField(id, inputs, status, args) {
+function buildInputField(id, inputs, status, arguments_) {
     let defaultValue = inputs[0];
-    let str;
-    if (status) {
-        str = `<input id=${id} `;
-    } else {
-        str = `<input id=${id} disabled="true"`;
+    let string_;
+    string_ = status ? `<input id=${id} ` : `<input id=${id} disabled="true"`;
+
+    if (arguments_['min']) {
+        string_ += `min="${arguments_['min']}" `;
     }
 
-    if (args['min']) {
-        str += `min="${args['min']}" `;
+    if (arguments_['max']) {
+        string_ += `max="${arguments_['max']}" `;
     }
 
-    if (args['max']) {
-        str += `max="${args['max']}" `;
-    }
-
-    return (str + `type="${args['type']}" value="${defaultValue}"></input>`);
+    return (string_ + `type="${arguments_['type']}" value="${defaultValue}"></input>`);
 }
 
-function registerNewOption(module, id, inputs, name, desc, status, style = 'main', type = 'select', args = []) {
-    let target = document.getElementById(`${module}-Options`);
+function registerNewOption(module, id, inputs, name, desc, status, style = 'main', type = 'select', arguments_ = []) {
+    let target = document.querySelector(`#${module}-Options`);
     if (target) {
         let container = document.createElement('div');
         container.classList.add('container');
@@ -58,24 +46,16 @@ function registerNewOption(module, id, inputs, name, desc, status, style = 'main
         let option = '';
 
         if (type === 'select') {
-            option = buildOptionList(id, inputs, status, args);
+            option = buildOptionList(id, inputs, status);
         } else if (type === 'input') {
-            if (args['type']) {
-                option = buildInputField(id, inputs, status, args);
-            } else {
-                option = buildInputField(id, inputs, status, args);
-            }
+            option = buildInputField(id, inputs, status, arguments_);
         } else {
             throw new Error(`Type ${type} not found!`);
         }
 
-        if (status == true) {
-            container.innerHTML = `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option implemented">{Status: <span class="checkmark ${style}-checkmark">✓</span>}</span></span>`;
-        } else {
-            container.innerHTML = `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option not implemented">{Status: <span class="cross ${style}-cross">✗</span>}</span></span>`;
-        }
+        container.innerHTML = status ? `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option implemented">{Status: <span class="checkmark ${style}-checkmark">✓</span>}</span></span>` : `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option not implemented">{Status: <span class="cross ${style}-cross">✗</span>}</span></span>`;
 
-        target.appendChild(container);
+        target.append(container);
         registeredOptions.push(id);
     } else {
         throw new Error(`Module ${module} not found!`);
@@ -127,7 +107,7 @@ registerNewOption('SCPLO', 'pagingbatchcount', [4], 'Paging Batch Count', 'How m
     'min': '1'
 });
 
-registerNewOption('SCPLO', 'alternativeimagescaling', ['false', 'true'], 'Alternative Image Scaling', 'Enables Alternative Image Scaling [Doesn\t work with clickable images];', true);
+registerNewOption('SCPLO', 'alternativeimagescaling', ['true', 'false'], 'Alternative Image Scaling', 'Enables Alternative Image Scaling [Doesn\t work with clickable images];', true);
 registerNewOption('SCPLO', 'maximagesize', [100], 'Max Image Size', 'Sets Max Image Size In % [-1 for infinite];', true, 'sub', 'input', {
     'type': 'number',
     'min': '0',
@@ -138,7 +118,7 @@ registerNewOption('SCPLO', 'imageclicksize', [-1], 'Image Click Size', 'Changes 
     'min': '-1',
     'max': '5000'
 });
-registerNewOption('SCPLO', 'revertonclick', ['false', 'true'], 'Revert On Click', 'Reverts Image Size on [2nd] Click;', true, 'sub');
+registerNewOption('SCPLO', 'revertonclick', ['true', 'false'], 'Revert On Click', 'Reverts Image Size on [2nd] Click;', true, 'sub');
 registerNewOption('SCPLO', 'preventbackgroundcolorchange', ['true', 'false'], 'Prevent Background Color Change', 'Prevents the Background Color Change', true); // TODO: Move to SCMU;
 registerNewOption('SCPLO', 'downloadmode', ['true', 'false'], 'Download Mode', 'New mode for downloading full res images;', true);
 registerNewOption('SCPLO', 'backgroundmode', ['true', 'false'], 'Background Mode', 'New mode for opening posts in the background;', true);
@@ -177,20 +157,20 @@ registerNewOption('SCSI', 'chansiteredirect', ['false', 'true'], 'Chan Site Redi
 
 // END: Register Options
 
-let subs = document.getElementsByClassName('sub-name')
-for (let i = 0; i < subs.length; i++) {
-    subs[i].innerHTML = "&emsp;" + subs[i].innerHTML.replace('‣', '•');
+let subs = document.querySelectorAll('.sub-name')
+for (const sub of subs) {
+    sub.innerHTML = "&emsp;" + sub.innerHTML.replace('‣', '•');
 
 }
 
 function saveOptions() {
     var save = {};
-    for (let i = 0; i < registeredOptions.length; i++) {
-        var value = document.getElementById(registeredOptions[i]).value;
+    for (const registeredOption of registeredOptions) {
+        var value = document.querySelector('#' + registeredOption).value;
         if (value !== 'false') {
-            save[`${registeredOptions[i]}`] = value;
+            save[`${registeredOption}`] = value;
         } else {
-            save[`${registeredOptions[i]}`] = '';
+            save[`${registeredOption}`] = '';
         }
     }
     chrome.storage.sync.set(save, function() {});
@@ -201,12 +181,12 @@ function restoreOptions() {
     setTimeout(function() {
         if (registeredOptions.length > 0) {
             chrome.storage.sync.get(registeredOptions, function(items) {
-                for (let i = 0; i < registeredOptions.length; i++) {
-                    let item = items[registeredOptions[i]];
+                for (const registeredOption of registeredOptions) {
+                    let item = items[registeredOption];
                     if (item) {
-                        document.getElementById(registeredOptions[i]).value = item;
+                        document.querySelector('#' + registeredOption).value = item;
                     } else if (item == '') {
-                        document.getElementById(registeredOptions[i]).value = 'false';
+                        document.querySelector('#' + registeredOption).value = 'false';
                     }
                 }
             });
@@ -230,7 +210,7 @@ function resetcache() {
 }
 
 function showUpdate() {
-    var status = document.getElementById('status');
+    var status = document.querySelector('#status');
     if (!displayActive) {
         writeAndErase(status, "«Saving: please wait until the popup closes»");
     }
@@ -248,18 +228,18 @@ function erase(target) {
         return;
     }
 
-    for (let i = 1; i <= 100; i++) {
+    for (let index = 1; index <= 100; index++) {
         setTimeout(() => {
-            target.style.opacity = `${100 - i}%`
-        }, i * updateMulti)
+            target.style.opacity = `${100 - index}%`
+        }, index * updateMulti)
     }
 
     setTimeout(() => {
-        target.innerText = '';
+        target.textContent = '';
         displayActive = false;
-        window.onbeforeunload = function() {
-            return null;
-        };
+        window.addEventListener('beforeunload', function() {
+            return;
+        });
     }, 101 * updateMulti)
 }
 
@@ -269,13 +249,13 @@ function writeAndErase(target, write) {
         return true;
     };
 
-    target.innerText = write;
+    target.textContent = write;
     target.style.opacity = '0%';
 
-    for (let i = 1; i <= 100; i++) {
+    for (let index = 1; index <= 100; index++) {
         setTimeout(() => {
-            target.style.opacity = `${i}%`
-        }, i * updateMulti)
+            target.style.opacity = `${index}%`
+        }, index * updateMulti)
     }
 
     setTimeout(() => {
@@ -284,5 +264,5 @@ function writeAndErase(target, write) {
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-document.getElementById('save').addEventListener('click', saveOptions);
+document.querySelector('#save').addEventListener('click', saveOptions);
 setTimeout(saveOptions, 250);

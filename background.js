@@ -13,20 +13,20 @@ chrome.runtime.onMessage.addListener(function(message) {
             currentWindow: true,
             active: true
         }, function(tabs) {
-            let i = tabs[0].index;
+            let index = tabs[0].index;
             if (message.includes(' closeleft ')) {
                 chrome.tabs.create({
                     url: message.replaceAll('open closeleft ', ''),
                     active: false,
                     selected: false,
-                    index: i
+                    index: index
                 });
             } else if (message.includes(' closeright ')) {
                 chrome.tabs.create({
                     url: message.replaceAll('open closeright ', ''),
                     active: false,
                     selected: false,
-                    index: (i + 1)
+                    index: (index + 1)
                 });
             } else if (message.includes(' farright ')) {
                 chrome.tabs.create({
@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener(function(message) {
                     url: message.replaceAll('open  ', ''),
                     active: false,
                     selected: false,
-                    index: i // Default: Close
+                    index: index // Default: Close
                 });
             }
         });
@@ -54,8 +54,8 @@ chrome.runtime.onMessage.addListener(function(message) {
         chrome.tabs.query({
             url: 'https://chan.sankakucomplex.com/?cache'
         }, function(tabs) {
-            for (let i = 0; i < tabs.length; i++) {
-                chrome.tabs.remove(tabs[i].id);
+            for (const tab of tabs) {
+                chrome.tabs.remove(tab.id);
             }
         });
     } else if (message.includes('cache')) {
@@ -69,8 +69,8 @@ chrome.runtime.onMessage.addListener(function(message) {
             currentWindow: true,
             active: true
         }, function(tabs) {
-            for (let i = 0; i < tabs.length; i++) {
-                chrome.tabs.reload(tabs[i].id);
+            for (const tab of tabs) {
+                chrome.tabs.reload(tab.id);
             }
         });
     }
