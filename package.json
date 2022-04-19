@@ -1,4 +1,7 @@
 {
+  "name": "sankaku-complex-addon",
+  "version": "1.0.0",
+  "private": true,
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-plugin-sonarjs": "^0.13.0",

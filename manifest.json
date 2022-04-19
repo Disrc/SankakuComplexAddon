@@ -1,6 +1,6 @@
 {
-    "name": "Sankaku Complex X",
-    "description": "Addon for the old Sankaku Complex Website",
+    "name": "Sankaku Complex Addon",
+    "description": "Addon for the legacy Sankaku Complex Website",
     "version": "1.0",
     "manifest_version": 3,
     "background": {
