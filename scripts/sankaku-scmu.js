@@ -58,7 +58,7 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
         childList: true
     };
 
-    let page = Number(document.querySelectorAll('.current')[0].textConent);
+    let page = Number(document.querySelectorAll('.current')[0].textContent);
     pag.innerHTML = `<a href="./?page=${(page - 1 > 0) ? (page - 1) : page}">&lt;&lt;</a>
     <span class="current">${page}</span>
     <a href="./?page=${page + 1}">&gt;&gt;</a>`;

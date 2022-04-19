@@ -132,7 +132,7 @@ var modes = [];
 function addNewMode(value, name, run) {
     let option = document.createElement('option');
     option.value = value;
-    option.textConent = name;
+    option.textContent = name;
     modes.push(value);
 
     let select = document.querySelector('#mode');
