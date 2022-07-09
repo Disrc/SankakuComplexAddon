@@ -1,66 +1,9 @@
 /*global chrome*/
 "use strict";
 
-var registeredOptions = [];
-
+const registeredOptions = [];
 window.addEventListener('resize', updateScale);
 window.addEventListener('load', updateScale);
-
-function updateScale() {
-    document.body.style.fontSize = window.innerWidth / 22 > 70 ? `${window.innerWidth / 22}%` : `70%`;
-}
-
-function buildOptionList(id, inputs, status) {
-    let optionList;
-    optionList = status ? `<select id=${id}>` : `<select id=${id} disabled = "true>"`;
-
-    for (const input of inputs) {
-        optionList += `<option value="${input.toLowerCase()}" id="${id}-${input.toLowerCase()}">${input}</option>`;
-    }
-    optionList += '</select>';
-    return optionList;
-}
-
-function buildInputField(id, inputs, status, arguments_) {
-    let defaultValue = inputs[0];
-    let string_;
-    string_ = status ? `<input id=${id} ` : `<input id=${id} disabled="true"`;
-
-    if (arguments_['min']) {
-        string_ += `min="${arguments_['min']}" `;
-    }
-
-    if (arguments_['max']) {
-        string_ += `max="${arguments_['max']}" `;
-    }
-
-    return (string_ + `type="${arguments_['type']}" value="${defaultValue}"></input>`);
-}
-
-function registerNewOption(module, id, inputs, name, desc, status, style = 'main', type = 'select', arguments_ = []) {
-    let target = document.querySelector(`#${module}-Options`);
-    if (target) {
-        let container = document.createElement('div');
-        container.classList.add('container');
-        container.classList.add(`${style}`);
-        let option = '';
-
-        if (type === 'select') {
-            option = buildOptionList(id, inputs, status);
-        } else if (type === 'input') {
-            option = buildInputField(id, inputs, status, arguments_);
-        } else {
-            throw new Error(`Type ${type} not found!`);
-        }
-
-        container.innerHTML = status ? `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option implemented">{Status: <span class="checkmark ${style}-checkmark">✓</span>}</span></span>` : `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option not implemented">{Status: <span class="cross ${style}-cross">✗</span>}</span></span>`;
-
-        target.append(container);
-        registeredOptions.push(id);
-    } else {
-        throw new Error(`Module ${module} not found!`);
-    }
-}
 
 // START: Register Options
 
@@ -107,7 +50,7 @@ registerNewOption('SCPLO', 'pagingbatchcount', [4], 'Paging Batch Count', 'How m
     'min': '1'
 });
 
-registerNewOption('SCPLO', 'alternativeimagescaling', ['true', 'false'], 'Alternative Image Scaling', 'Enables Alternative Image Scaling [Doesn\t work with clickable images];', true);
+registerNewOption('SCPLO', 'alternativeimagescaling', ['true', 'false'], 'Alternative Image Scaling', 'Enables Alternative Image Scaling [Doesn\'t work with clickable images];', true);
 registerNewOption('SCPLO', 'maximagesize', [100], 'Max Image Size', 'Sets Max Image Size In % [-1 for infinite];', true, 'sub', 'input', {
     'type': 'number',
     'min': '0',
@@ -120,7 +63,7 @@ registerNewOption('SCPLO', 'imageclicksize', [-1], 'Image Click Size', 'Changes 
 });
 registerNewOption('SCPLO', 'revertonclick', ['true', 'false'], 'Revert On Click', 'Reverts Image Size on [2nd] Click;', true, 'sub');
 registerNewOption('SCPLO', 'preventbackgroundcolorchange', ['true', 'false'], 'Prevent Background Color Change', 'Prevents the Background Color Change', true); // TODO: Move to SCMU;
-registerNewOption('SCPLO', 'downloadmode', ['true', 'false'], 'Download Mode', 'New mode for downloading full res images;', true);
+// registerNewOption('SCPLO', 'downloadmode', ['true', 'false'], 'Download Mode', 'New mode for downloading full res images;', true);
 registerNewOption('SCPLO', 'backgroundmode', ['true', 'false'], 'Background Mode', 'New mode for opening posts in the background;', true);
 registerNewOption('SCPLO', 'tabopeningmode', ['closeright', 'closeleft', 'farright', 'farleft'], 'Tab Opening Mode', 'Defines where new background mode tabs will be opened', true, 'sub');
 
@@ -148,23 +91,93 @@ registerNewOption('SCMU', 'tagtracker', ['false', 'true'], 'Enable Tag Tracker',
 */
 
 // ?> SCSI
-registerNewOption('SCSI', 'scsienabled', ['true', 'false'], 'Enabled', 'Enables the addon;', true);
+registerNewOption('SCSI', 'scsienabled', ['false', 'true'], 'Enabled', 'Enables the addon;', true);
 registerNewOption('SCSI', 'rule34pahealintegration', ['false', 'true'], 'Rule34 Integration [paheal]', 'Import posts from rule34 [paheal] to sankaku complex;', true);
 registerNewOption('SCSI', 'rule34pahealdownload', ['false', 'true'], 'Auto Download', 'Automatically downloads posts when importing;', true, 'sub');
 registerNewOption('SCSI', 'rule34xxxintegration', ['false', 'true'], 'Rule34 Integration [XXX]', 'Import posts from rule34 [xxx] to sankaku complex;', true);
 registerNewOption('SCSI', 'rule34xxxdownload', ['false', 'true'], 'Auto Download', 'Automatically downloads posts when importing;', true, 'sub');
 registerNewOption('SCSI', 'chansiteredirect', ['false', 'true'], 'Chan Site Redirect', '[www.] -> [chan.];', true);
 
+// ?> SCAH
+registerNewOption('SCAH', 'scahenabled', ['false', 'true'], 'Enabled', 'Enables the addon;', true);
+registerNewOption('SCAH', 'forcethemeenabled', ['false', 'true'], 'Force Theme', 'Enables Force Theme;', true);
+registerNewOption('SCAH', 'forcethemetype', ['light', 'dark'], 'Force Theme Type', 'Sets the theme type to use;', true, 'sub');
+registerNewOption('SCAH', 'automaticlogin', ['false', 'true'], 'Automatic Login', 'Automatically logs in to the site;', true);
+registerNewOption('SCAH', 'automaticloginemail', [''], 'Email', 'Email to use for automatic login;', true, 'sub', 'input', {
+    'type': 'email'
+});
+registerNewOption('SCAH', 'automaticloginpassword', [''], 'Password', 'Password to use for automatic login;', true, 'sub', 'input', {
+    'type': 'password'
+});
+registerNewOption('SCAH', 'postanalyzer', ['false', 'true'], 'Post Analyzer', 'Locally analyzes a post when you give it a rating;', true);
+registerNewOption('SCAH', 'postanalyzerdate', ['false', 'true'], 'Date', 'Store the access date when analyzing a post;', true, 'sub');
+registerNewOption('SCAH', 'postanalyzerupdate', ['true', 'false'], 'Update', 'Check for updates when revisiting an already analyzed post;', true, 'sub');
+
 // END: Register Options
 
-let subs = document.querySelectorAll('.sub-name')
+function updateScale() {
+    document.body.style.fontSize = window.innerWidth / 22 > 70 ? `${window.innerWidth / 22}%` : `70%`;
+}
+
+function buildOptionList(id, inputs, status) {
+    let optionList = status ? `<select id=${id}>` : `<select id=${id} disabled = "true>"`;
+
+    for (const input of inputs) {
+        optionList += `<option value="${input.toLowerCase()}" id="${id}-${input.toLowerCase()}">${input}</option>`;
+    }
+    optionList += '</select>';
+    return optionList;
+}
+
+function buildInputField(id, inputs, status, arguments_) {
+    const defaultValue = inputs[0];
+    let string = status ? `<input id=${id} ` : `<input id=${id} disabled="true"`;
+
+    if (arguments_['min']) {
+        string += `min="${arguments_['min']}" `;
+    }
+
+    if (arguments_['max']) {
+        string += `max="${arguments_['max']}" `;
+    }
+
+    return (string + `type="${arguments_['type']}" value="${defaultValue}"></input>`);
+}
+
+function registerNewOption(module, id, inputs, name, desc, status, style = 'main', type = 'select', arguments_ = []) {
+    const target = document.querySelector(`#${module}-Options`);
+    if (target) {
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.classList.add(`${style}`);
+        let option = '';
+
+        if (type === 'select') {
+            option = buildOptionList(id, inputs, status);
+        } else if (type === 'input') {
+            option = buildInputField(id, inputs, status, arguments_);
+        } else {
+            throw new Error(`Type ${type} not found!`);
+        }
+
+        container.innerHTML = /*html*/
+            `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option ${status ? "" : "not "}implemented">{Status: <span class="${status ? "checkmark" : "cross"} ${style}-${status ? "checkmark" : "cross"}">✓</span>}</span></span>`
+
+        target.append(container);
+        registeredOptions.push(id);
+    } else {
+        throw new Error(`Module ${module} not found!`);
+    }
+}
+
+const subs = document.querySelectorAll('.sub-name')
 for (const sub of subs) {
     sub.innerHTML = "&emsp;" + sub.innerHTML.replace('‣', '•');
 
 }
 
 function saveOptions() {
-    var save = {};
+    const save = {};
     for (const registeredOption of registeredOptions) {
         var value = document.querySelector('#' + registeredOption).value;
         if (value !== 'false') {
@@ -173,20 +186,21 @@ function saveOptions() {
             save[`${registeredOption}`] = '';
         }
     }
-    chrome.storage.sync.set(save, function() {});
+    chrome.storage.sync.set(save, function () {});
     resetcache();
 }
 
 function restoreOptions() {
-    setTimeout(function() {
+    setTimeout(function () {
         if (registeredOptions.length > 0) {
-            chrome.storage.sync.get(registeredOptions, function(items) {
+            chrome.storage.sync.get(registeredOptions, function (items) {
                 for (const registeredOption of registeredOptions) {
-                    let item = items[registeredOption];
+                    const option = document.querySelector('#' + registeredOption);
+                    const item = items[registeredOption];
                     if (item) {
-                        document.querySelector('#' + registeredOption).value = item;
-                    } else if (item == '') {
-                        document.querySelector('#' + registeredOption).value = 'false';
+                        option.value = item;
+                    } else if (item == '' && option.tagName.toLowerCase() === 'select') {
+                        option.value = 'false';
                     }
                 }
             });
@@ -194,25 +208,26 @@ function restoreOptions() {
     }, 4);
 }
 
-var displayActive = false;
-var allowErase = false;
-var updateMulti = 5;
+const updateMulti = 5;
+let displayActive = false;
+let allowErase = false;
 
 function resetcache() {
     if (!displayActive) {
+        localStorage.setItem('cached', false);
         allowErase = false;
         showUpdate()
         chrome.runtime.sendMessage('cache');
         setTimeout(() => {
             allowErase = true;
         }, (100 * updateMulti) * 5);
+        localStorage.setItem('cached', true);
     }
 }
 
 function showUpdate() {
-    var status = document.querySelector('#status');
     if (!displayActive) {
-        writeAndErase(status, "«Saving: please wait until the popup closes»");
+        writeAndErase(document.querySelector('#status'), "«Saving: please wait until the popup closes»");
     }
 }
 
@@ -237,7 +252,7 @@ function erase(target) {
     setTimeout(() => {
         target.textContent = '';
         displayActive = false;
-        window.addEventListener('beforeunload', function() {
+        window.addEventListener('beforeunload', function () {
             return;
         });
     }, 101 * updateMulti)
@@ -245,7 +260,7 @@ function erase(target) {
 
 function writeAndErase(target, write) {
     displayActive = true;
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
         return true;
     };
 

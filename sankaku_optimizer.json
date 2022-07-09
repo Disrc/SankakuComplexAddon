@@ -7,8 +7,13 @@
         },
         "condition": {
             "urlFilter": "otaserve.net",
-            "domains": ["chan.sankakucomplex.com"],
-            "resourceTypes": ["script", "other"]
+            "domains": [
+                "chan.sankakucomplex.com"
+            ],
+            "resourceTypes": [
+                "script",
+                "other"
+            ]
         }
     },
     {
@@ -19,8 +24,12 @@
         },
         "condition": {
             "urlFilter": "chan.sankakucomplex.com*s.js",
-            "domains": ["chan.sankakucomplex.com"],
-            "resourceTypes": ["script"]
+            "domains": [
+                "chan.sankakucomplex.com"
+            ],
+            "resourceTypes": [
+                "script"
+            ]
         }
     }
 ]

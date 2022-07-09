@@ -3,11 +3,11 @@
 
 if (window.location.href.includes('chan.sankakucomplex.com')) {
     if (window.location.href.includes('?cache') || !localStorage.getItem('cached')) {
-        window.onbeforeunload = function() {
+        window.onbeforeunload = function () {
             return true;
         };
 
-        let fetch = [
+        const fetch = [
             // SCAM
             'scamenabled',
             'blockpendingposts',
@@ -70,10 +70,22 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
             'rule34xxxdownload',
             'rule34pahealintegration',
             'rule34xxxintegration',
-            'chansiteredirect'
+            'chansiteredirect',
+
+            // SCAH
+            'scahenabled',
+            'forcethemeenabled',
+            'forcethemetype',
+            'automaticlogic',
+            'automaticloginemail',
+            'automaticloginpassword',
+            'postanalyzer',
+            'postanalyzerdate',
+            'postanalyzerupdate',
         ];
+
         chrome.storage.sync.get(fetch,
-            function(value) {
+            function (value) {
                 for (const v of fetch) {
                     localStorage.setItem(v, value[v]);
                 }
@@ -89,16 +101,17 @@ if (window.location.href.includes('chan.sankakucomplex.com')) {
     }
 } else {
     // Multi-site fetching
-    let fetch = [
-        'siteintegrationsenabled',
+    const fetch = [
+        'scsienabled',
         'rule34pahealdownload',
         'rule34xxxdownload',
         'rule34pahealintegration',
         'rule34xxxintegration',
         'chansiteredirect'
     ];
+
     chrome.storage.sync.get(fetch,
-        function(value) {
+        function (value) {
             for (const v of fetch) {
                 localStorage.setItem(v, value[v]);
             }

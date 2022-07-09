@@ -3,14 +3,14 @@
 
 // Modules
 function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
-    var autoPaging = document.querySelector("#sc-auto-toggle");
+    const autoPaging = document.querySelector("#sc-auto-toggle");
     if (!autoPaging) {
         return;
     }
 
-    var optionList = document.querySelector("#sc-auto-toggle").parentNode.parentNode.parentNode;
-    var optimizedPaging = sessionStorage.getItem('optimizedPaging');
-    var optimizedPagingDefault = true; // [[true="on"][false="off"]];
+    const optionList = document.querySelector("#sc-auto-toggle").parentNode.parentNode.parentNode;
+    const optimizedPagingDefault = true; // [[true="on"][false="off"]];
+    let optimizedPaging = sessionStorage.getItem('optimizedPaging');
 
     if (!document.querySelector("#sc-auto-toggle")) {
         return;
@@ -34,13 +34,13 @@ function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
         }
     }
 
-    var FPC = document.createElement("div");
+    const FPC = document.createElement("div");
     FPC.innerHTML = `<h5>Optimized Paging</h5>`;
 
-    var FP = document.createElement("ul");
+    const FP = document.createElement("ul");
     FP.innerHTML = optimizedPaging === "on" ? `<li><a href="#">Enabled: <span>On</span></a></li>` : `<li><a href="#">Enabled: <span>Off</span></a></li>`;
 
-    FP.addEventListener("click", function() {
+    FP.addEventListener("click", function () {
         if (optimizedPaging === "on") {
             optimizedPaging = "off";
             sessionStorage.setItem("optimizedPaging", "off");
@@ -56,34 +56,34 @@ function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
     optionList.append(FPC);
     var initialize = true;
 
-    setInterval(function() {
+    setInterval(function () {
         if (autoPaging.textContent == "Enabled: On" && optimizedPaging && document.querySelector(`#content-page-${pagingAwaitId}`)) {
-                    for (var index = 0; index < pagingBatchCount; index++) {
-                        if (initialize) {
-                            initialize = false;
-                            if (document.querySelector("#popular-preview")) {
-                                let popularPreview = document.querySelector(`#popular-preview`);
-                                let target = document.querySelector(`#content-page-${pagingAwaitId}`);
-                                target.parentNode.replaceChild(popularPreview, target.parentNode.children[0])
-                            } else {
-                                let target = document.querySelector(`#content-page-${pagingAwaitId}`).parentNode.children[0];
-                                target.remove();
-                            }
-                        } else {
-                            let target = document.querySelector(`#content-page-${pagingTargetId}`)
-                            target.remove();
-                        }
-                        pagingAwaitId += 1;
-                        pagingTargetId += 1;
+            for (var index = 0; index < pagingBatchCount; index++) {
+                if (initialize) {
+                    initialize = false;
+                    if (document.querySelector("#popular-preview")) {
+                        let popularPreview = document.querySelector(`#popular-preview`);
+                        let target = document.querySelector(`#content-page-${pagingAwaitId}`);
+                        target.parentNode.replaceChild(popularPreview, target.parentNode.children[0])
+                    } else {
+                        let target = document.querySelector(`#content-page-${pagingAwaitId}`).parentNode.children[0];
+                        target.remove();
                     }
+                } else {
+                    let target = document.querySelector(`#content-page-${pagingTargetId}`)
+                    target.remove();
                 }
+                pagingAwaitId += 1;
+                pagingTargetId += 1;
+            }
+        }
     }, 100);
 }
 
-var clicked = false;
-
 function alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick) {
-    let img = document.querySelector('#image');
+    const img = document.querySelector('#image');
+    let clicked = false;
+
     if (img && img.tagName === 'IMG') {
         img.click();
         img.style.height = 'auto'
@@ -105,19 +105,19 @@ function alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick) {
 }
 
 var originalColor = '#1B1B1B';
-let container = document.querySelectorAll('.lang-select')[0];
+const container = document.querySelectorAll('.lang-select')[0];
 if (container) {
     originalColor = container.children[container.children.length - 1].classList.contains('theme-button-selected') ? '#1B1B1B' : 'rgb(241, 241, 241)';
 }
 
 function preventBackgroundColorChange() {
-    let style = document.createElement('style');
+    const style = document.createElement('style');
     style.innerHTML = `.preventBackground { background-color: ${originalColor} !important; }`;
     style.id = 'backgroundHandler';
     document.head.append(style);
 
     document.body.classList.add('preventBackground');
-    let content = document.querySelectorAll('.content')[0];
+    const content = document.querySelectorAll('.content')[0];
     if (content) {
         content.classList.add('preventBackground');
     }
@@ -127,15 +127,15 @@ if (window.location.href.includes('?download')) {
     // TODO: Implement;
 }
 
-var modes = [];
+const modes = [];
 
 function addNewMode(value, name, run) {
-    let option = document.createElement('option');
+    const option = document.createElement('option');
     option.value = value;
     option.textContent = name;
     modes.push(value);
 
-    let select = document.querySelector('#mode');
+    const select = document.querySelector('#mode');
     if (select) {
         select.append(option);
         select.addEventListener('change', (event) => {
@@ -146,10 +146,7 @@ function addNewMode(value, name, run) {
         }, true);
 
         document.querySelectorAll('.content')[0].addEventListener('click', (event) => {
-            if (select.value !== value || event.target.parentNode && event.target.parentNode.classList.contains('pagination')) {
-                return;
-            }
-
+            if (select.value !== value || event.target.parentNode && event.target.parentNode.classList.contains('pagination')) return;
             event.preventDefault();
             event.stopImmediatePropagation();
             if (event.target.classList.contains('preview')) {
@@ -161,52 +158,45 @@ function addNewMode(value, name, run) {
 
 function downloadMode() {
     addNewMode('download', 'Download post', (event) => {
-        let split = event.target.parentNode.href.split('/');
-        let id = split[split.length - 1];
+        const split = event.target.parentNode.href.split('/');
+        const id = split[split.length - 1];
         chrome.runtime.sendMessage(`open https://chan.sankakucomplex.com/post/show/${id}?download`);
     });
 }
 
 function backgroundMode(tabOpeningMode) {
     addNewMode('background', 'View background', (event) => {
-        let split = event.target.parentNode.href.split('/');
-        let id = split[split.length - 1];
+        const split = event.target.parentNode.href.split('/');
+        const id = split[split.length - 1];
         chrome.runtime.sendMessage(`open ${tabOpeningMode} https://chan.sankakucomplex.com/post/show/${id}`);
     });
 }
 
 // Loader
-if (localStorage.getItem('scploenabled')) {
-    let pagingAwaitId = Number(localStorage.getItem('pagingawaitid'));
-    let pagingBatchCount = Number(localStorage.getItem('pagingbatchcount'));
-    let pagingTargetId = Number(localStorage.getItem('pagingtargetid'));
-    let mis = Number(localStorage.getItem('maximagesize'));
-    let maxImageSize = (mis === -1) ? '' : `${Number(mis)}%`;
-    let ics = Number(localStorage.getItem('imageclicksize'));
-    let imageClickSize = (ics === -1) ? '' : `${Number(ics)}%`;
-    let revertOnClick = (localStorage.getItem('revertonclick')) ? true : false;
-    let tabOpeningMode = localStorage.getItem('tabopeningmode');
-
+if (localStorage.getItem('scploenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
     if (localStorage.getItem('optimizedpaging')) {
+        const pagingAwaitId = Number(localStorage.getItem('pagingawaitid'));
+        const pagingBatchCount = Number(localStorage.getItem('pagingbatchcount'));
+        const pagingTargetId = Number(localStorage.getItem('pagingtargetid'));
         optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId);
     }
     if (localStorage.getItem('alternativeimagescaling')) {
+        const mis = Number(localStorage.getItem('maximagesize'));
+        const maxImageSize = (mis === -1) ? '' : `${Number(mis)}%`;
+        const ics = Number(localStorage.getItem('imageclicksize'));
+        const imageClickSize = (ics === -1) ? '' : `${Number(ics)}%`;
+        const revertOnClick = (localStorage.getItem('revertonclick')) ? true : false;
         alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick);
     }
-    if (localStorage.getItem('preventbackgroundcolorchange')) {
-        preventBackgroundColorChange();
-    }
-    if (localStorage.getItem('downloadmode')) {
-        downloadMode();
-    }
+    if (localStorage.getItem('preventbackgroundcolorchange')) preventBackgroundColorChange();
+    if (localStorage.getItem('downloadmode')) downloadMode();
     if (localStorage.getItem('backgroundmode')) {
+        const tabOpeningMode = localStorage.getItem('tabopeningmode');
         backgroundMode(tabOpeningMode);
     }
 
-    // Post
-    let modeContainer = document.querySelector('#mode');
-    if (modeContainer) {
-        let mode = localStorage.getItem('mode');
+    if (document.querySelector('#mode')) {
+        const mode = localStorage.getItem('mode');
         if (mode && mode !== 'undefined') {
             document.querySelector('#mode').value = mode;
         }

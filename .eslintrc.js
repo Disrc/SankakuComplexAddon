@@ -2,7 +2,7 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2022": true
+        "es2022": true,
     },
     "plugins": [
         "unicorn",
@@ -23,5 +23,6 @@ module.exports = {
         "unicorn/prefer-module": "off",
         "sonarjs/cognitive-complexity": "off",
         "unicorn/prefer-add-event-listener": "off",
+        "semi": "always"
     }
 };

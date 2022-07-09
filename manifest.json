@@ -7,13 +7,19 @@
         "service_worker": "background.js"
     },
     "declarative_net_request": {
-        "rule_resources": [{
-            "id": "sankaku_optimizer",
-            "enabled": true,
-            "path": "sankaku_optimizer.json"
-        }]
+        "rule_resources": [
+            {
+                "id": "sankaku_optimizer",
+                "enabled": true,
+                "path": "sankaku_optimizer.json"
+            }
+        ]
     },
-    "permissions": ["storage", "tabs", "declarativeNetRequest"],
+    "permissions": [
+        "storage",
+        "tabs",
+        "declarativeNetRequest"
+    ],
     "options_page": "html/options.html",
     "action": {
         "default_popup": "html/menu.html",
@@ -22,51 +28,37 @@
             "32": "icons/icon32.png"
         }
     },
-    "content_scripts": [{
-        "matches": [
-            "https://chan.sankakucomplex.com/*",
-            "https://www.sankakucomplex.com/*",
-            "https://rule34.paheal.net/post/*",
-            "https://peach.paheal.net/*",
-            "https://holly.paheal.net/*",
-            "https://rule34.xxx/index.php?page=post&s=view*",
-            "https://img.rule34.xxx/*",
-            "https://wimg.rule34.xxx/*"
-        ],
-        "js": ["scripts/cache-handler.js"]
-    }, {
-        "matches": [
-            "https://chan.sankakucomplex.com/*"
-        ],
-        "js": ["scripts/sankaku-scar.js"]
-    }, {
-        "matches": [
-            "https://chan.sankakucomplex.com/*"
-        ],
-        "js": ["scripts/sankaku-scam.js"]
-    }, {
-        "matches": [
-            "https://chan.sankakucomplex.com/*"
-        ],
-        "js": ["scripts/sankaku-scplo.js"]
-    }, {
-        "matches": [
-            "https://chan.sankakucomplex.com/*"
-        ],
-        "js": ["scripts/sankaku-scmu.js"]
-    }, {
-        "matches": [
-            "https://chan.sankakucomplex.com/*",
-            "https://www.sankakucomplex.com/*",
-            "https://rule34.paheal.net/post/*",
-            "https://peach.paheal.net/*",
-            "https://holly.paheal.net/*",
-            "https://rule34.xxx/index.php?page=post&s=view*",
-            "https://img.rule34.xxx/*",
-            "https://wimg.rule34.xxx/*"
-        ],
-        "js": ["scripts/sankaku-scsi.js"]
-    }],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.sankakucomplex.com/*",
+                "https://rule34.paheal.net/post/*",
+                "https://peach.paheal.net/*",
+                "https://holly.paheal.net/*",
+                "https://rule34.xxx/index.php?page=post&s=view*",
+                "https://img.rule34.xxx/*",
+                "https://wimg.rule34.xxx/*"
+            ],
+            "js": [
+                "scripts/cache-handler.js",
+                "scripts/sankaku-scsi.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://chan.sankakucomplex.com/*"
+            ],
+            "js": [
+                "scripts/cache-handler.js",
+                "scripts/sankaku-scah.js",
+                "scripts/sankaku-scar.js",
+                "scripts/sankaku-scam.js",
+                "scripts/sankaku-scplo.js",
+                "scripts/sankaku-scmu.js",
+                "scripts/sankaku-scsi.js"
+            ]
+        }
+    ],
     "icons": {
         "16": "icons/icon16.png",
         "32": "icons/icon32.png",

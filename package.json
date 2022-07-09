@@ -1,12 +1,12 @@
 {
-  "name": "sankaku-complex-addon",
-  "version": "1.0.0",
-  "private": true,
-  "devDependencies": {
-    "eslint": "^8.13.0",
-    "eslint-plugin-sonarjs": "^0.13.0",
-    "eslint-plugin-unicorn": "^42.0.0",
-    "stylelint": "^14.7.1",
-    "stylelint-config-standard": "^25.0.0"
-  }
+    "name": "sankaku-complex-addon",
+    "version": "1.0.0",
+    "private": true,
+    "devDependencies": {
+        "eslint": "^8.19.0",
+        "eslint-plugin-sonarjs": "^0.13.0",
+        "eslint-plugin-unicorn": "^43.0.1",
+        "stylelint": "^14.9.1",
+        "stylelint-config-standard": "^26.0.0"
+    }
 }

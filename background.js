@@ -7,13 +7,13 @@ chrome.runtime.onInstalled.addListener(() => {
     }
 })
 
-chrome.runtime.onMessage.addListener(function(message) {
+chrome.runtime.onMessage.addListener(function (message) {
     if (message.includes('open ')) {
         chrome.tabs.query({
             currentWindow: true,
             active: true
-        }, function(tabs) {
-            let index = tabs[0].index;
+        }, function (tabs) {
+            const index = tabs[0].index;
             if (message.includes(' closeleft ')) {
                 chrome.tabs.create({
                     url: message.replaceAll('open closeleft ', ''),
@@ -53,7 +53,7 @@ chrome.runtime.onMessage.addListener(function(message) {
     } else if (message.includes('cached')) {
         chrome.tabs.query({
             url: 'https://chan.sankakucomplex.com/?cache'
-        }, function(tabs) {
+        }, function (tabs) {
             for (const tab of tabs) {
                 chrome.tabs.remove(tab.id);
             }
@@ -68,7 +68,7 @@ chrome.runtime.onMessage.addListener(function(message) {
         chrome.tabs.query({
             currentWindow: true,
             active: true
-        }, function(tabs) {
+        }, function (tabs) {
             for (const tab of tabs) {
                 chrome.tabs.reload(tab.id);
             }

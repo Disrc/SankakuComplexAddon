@@ -1,13 +1,11 @@
 "use strict";
 
 // Modules
-var addToFavorites;
-var removeFromFavorites;
 
 function alternateFavorite(noFavoriteHover) {
     if (window.location.href.includes('post/show')) {
-        addToFavorites = document.querySelector('#add-to-favs');
-        removeFromFavorites = document.querySelector('#remove-from-favs');
+        const addToFavorites = document.querySelector('#add-to-favs');
+        const removeFromFavorites = document.querySelector('#remove-from-favs');
 
         if (noFavoriteHover) {
             addToFavorites.children[0].classList.remove('favoriteIcon');
@@ -33,7 +31,7 @@ function alternateFavorite(noFavoriteHover) {
 }
 
 function autoMuteVideo(customVideoVolume) {
-    let post = document.querySelector('#image');
+    const post = document.querySelector('#image');
     if (post && post.tagName === 'VIDEO') {
         post.volume = customVideoVolume || 0;
     }
@@ -65,10 +63,10 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
 
     let tryPageLoadFix = true;
     handleChildren(targetNode.children[targetNode.children.length - 4], instantImageLoad);
-    const callback = function(mutationsList /*, observer*/ ) {
+    const callback = function (mutationsList /*, observer*/) {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
-                let target = targetNode.children[targetNode.children.length - 2];
+                const target = targetNode.children[targetNode.children.length - 2];
                 if (target.classList.contains('content-page')) {
                     handleChildren(targetNode.children[targetNode.children.length - 2], instantImageLoad);
                     if (pageUpdateFix) {
@@ -105,23 +103,24 @@ function tagTracker() {}
 */
 
 // Loader
-if (localStorage.getItem('scmuenabled')) {
-    let customVideoVolume = (localStorage.getItem('customvideovolume') / 100);
-    let noFavoriteHover = (localStorage.getItem('nofavoritehover')) ? true : false;
-    let instantImageLoad = (localStorage.getItem('instantimageload')) ? true : false;
-    // let customImageHightlights = (localStorage.getItem('customimagehighlights')) ? true : false;
-    let pageUpdateFix = (localStorage.getItem('pageupdatefix')) ? true : false;
-
+if (localStorage.getItem('scmuenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
     if (localStorage.getItem('alternatefavorite')) {
+        const noFavoriteHover = (localStorage.getItem('nofavoritehover')) ? true : false;
         alternateFavorite(noFavoriteHover);
     }
     if (localStorage.getItem('automutevideo')) {
+        const customVideoVolume = (localStorage.getItem('customvideovolume') / 100);
         autoMuteVideo(customVideoVolume);
     }
     if (localStorage.getItem('imageloadhook')) {
+        const instantImageLoad = (localStorage.getItem('instantimageload')) ? true : false;
+        const pageUpdateFix = (localStorage.getItem('pageupdatefix')) ? true : false;
         imageLoadHook(instantImageLoad, pageUpdateFix);
     }
+
     /*
+    const customImageHightlights = (localStorage.getItem('customimagehighlights')) ? true : false;
+
     if (localStorage.getItem('customtaghighlights')) {
         customTagHighlights();
     }
