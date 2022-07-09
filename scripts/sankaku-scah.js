@@ -7,44 +7,64 @@ function automaticLogin(email, password) {
             const notice = document.querySelector('#notice');
             if (notice && notice.textContent.includes('Access denied')) {
                 notice.textContent = 'Automatic login failed - please enter a valid username/email and password!';
-                return;
+                return true;
             }
 
             document.querySelector('#user_name').value = email;
             document.querySelector('#user_password').value = password;
             document.querySelector('input[type="submit"]').click();
+            return false;
         } else {
             localStorage.setItem('automaticLoginSource', window.location.href === 'https://chan.sankakucomplex.com/user/login' ? 'https://chan.sankakucomplex.com/' : window.location.href);
             window.location.href = 'https://chan.sankakucomplex.com/user/login';
+            return false;
         }
-    } else if (window.location.href.includes('/user/home')) {
-        if (document.querySelector('#notice').textContent.includes("You are now logged in")) {
-            window.location.href = localStorage.getItem('automaticLoginSource');
+    } else {
+        if (window.location.href.includes('/user/home')) {
+            if (document.querySelector('#notice').textContent.includes("You are now logged in")) {
+                window.location.href = localStorage.getItem('automaticLoginSource');
+                return false;
+            }
         }
+        return true;
     }
 }
 
 function postAnalyzer(saveDate, update) {
     const postId = Number(window.location.href.split('/post/show/')[1])
-    const postData = JSON.parse(localStorage.getItem(postId)) ?? {};
-    console.log('Fetched', postData);
-    var hasUpdated = updatePost(saveDate, update, postId, postData);
-    console.log('Updated', postData);
-    for (const star of document.querySelectorAll('.star-full')) {
-        star.addEventListener('click', () => {
-            const rating = Number(star.children[0].title.split(' ')[0]);
-            ratePost(saveDate, postId, postData, rating, hasUpdated);
-            hasUpdated = true;
-            console.log('Rating updated', postData);
-        });
-    }
-
-    if (saveDate) {
-        postData['date'] = new Date().toISOString();
-    }
+    chrome.storage.local.get(postId.toString(), (posts) => {
+        const postData = posts[postId.toString()] ?? {};
+        console.log('Fetched', postData);
+        var hasUpdated = updatePost(saveDate, update, postId, postData);
+        console.log('Updated', postData);
+        for (const star of document.querySelector('.unit-rating').children) {
+            star.addEventListener('click', () => {
+                const rating = Number(star.children[0].title.split(' ')[0]);
+                ratePost(saveDate, postId, postData, rating, hasUpdated);
+                hasUpdated = true;
+                console.log('Rating updated', postData);
+            });
+        }
+    });
 }
 
 function ratePost(saveDate, postId, postData, starRating, hasUpdated) {
+    console.log(postData, Object.keys(postData).length);
+    if (Object.keys(postData).length === 0) {
+        chrome.storage.local.get('posts', (posts) => {
+            console.log("Fetched posts", posts);
+            if (!posts || !Array.isArray(posts)) {
+                posts = [];
+            }
+
+            if (!posts.includes(postId)) {
+                posts.push(postId);
+                chrome.storage.local.set({ posts: posts });
+                console.log("Saved posts", posts);
+            }
+        });
+    }
+
     postData['rating'] = starRating;
     if (saveDate) postData['updateDate'] = new Date().toISOString();
     if (!hasUpdated) {
@@ -52,7 +72,7 @@ function ratePost(saveDate, postId, postData, starRating, hasUpdated) {
         updatePostData(postData);
     }
 
-    localStorage.setItem(postId, JSON.stringify(postData));
+    chrome.storage.local.set({ [postId.toString()]: postData });
 }
 
 function updatePost(saveDate, update, postId, postData) {
@@ -60,7 +80,7 @@ function updatePost(saveDate, update, postId, postData) {
     if (saveDate) postData['updateDate'] = new Date().toISOString();
     updatePostData(postData);
 
-    localStorage.setItem(postId, JSON.stringify(postData));
+    chrome.storage.local.set({ [postId.toString()]: postData });
     return true;
 }
 
@@ -97,18 +117,24 @@ if (localStorage.getItem('scahenabled') && !window.location.href.includes('?cach
         const automaticLoginEmail = localStorage.getItem('automaticloginemail');
         const automaticLoginPassword = localStorage.getItem('automaticloginpassword');
         if (automaticLoginEmail && automaticLoginPassword) {
-            automaticLogin(automaticLoginEmail, automaticLoginPassword);
+            const loginCompleted = automaticLogin(automaticLoginEmail, automaticLoginPassword);
+
+            // ? "Login completed" does not mean the user has actually logged in.
+            if (localStorage.getItem('forcethemeenabled') && loginCompleted) {
+                forceTheme(localStorage.getItem('forcethemetype'));
+            }
+        }
+    } else {
+        if (localStorage.getItem('forcethemeenabled')) {
+            forceTheme(localStorage.getItem('forcethemetype'));
         }
     }
 
-    if (localStorage.getItem('postanalyzer') && window.location.href.includes('/post/show')) {
-        const postAnalyzerDate = localStorage.getItem('postanalyzerdate') ? true : false;
-        const postAnalyzerUpdate = localStorage.getItem('postanalyzerupdate') ? true : false;
-        postAnalyzer(postAnalyzerDate, postAnalyzerUpdate);
-    }
-
-    if (localStorage.getItem('forcethemeenabled')) {
-        const theme = localStorage.getItem('forcethemetype');
-        forceTheme(theme);
-    }
+    setTimeout(() => {
+        if (localStorage.getItem('postanalyzer') && window.location.href.includes('/post/show')) {
+            const postAnalyzerDate = localStorage.getItem('postanalyzerdate') ? true : false;
+            const postAnalyzerUpdate = localStorage.getItem('postanalyzerupdate') ? true : false;
+            postAnalyzer(postAnalyzerDate, postAnalyzerUpdate);
+        }
+    }, 0);
 }

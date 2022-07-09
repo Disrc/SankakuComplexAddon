@@ -2,8 +2,6 @@
 "use strict";
 
 const registeredOptions = [];
-window.addEventListener('resize', updateScale);
-window.addEventListener('load', updateScale);
 
 // START: Register Options
 
@@ -115,10 +113,6 @@ registerNewOption('SCAH', 'postanalyzerupdate', ['true', 'false'], 'Update', 'Ch
 
 // END: Register Options
 
-function updateScale() {
-    document.body.style.fontSize = window.innerWidth / 22 > 70 ? `${window.innerWidth / 22}%` : `70%`;
-}
-
 function buildOptionList(id, inputs, status) {
     let optionList = status ? `<select id=${id}>` : `<select id=${id} disabled = "true>"`;
 
@@ -186,17 +180,17 @@ function saveOptions() {
             save[`${registeredOption}`] = '';
         }
     }
-    chrome.storage.sync.set(save, function () {});
+    chrome.storage.local.set(save, function () {});
     resetcache();
 }
 
 function restoreOptions() {
     setTimeout(function () {
         if (registeredOptions.length > 0) {
-            chrome.storage.sync.get(registeredOptions, function (items) {
+            chrome.storage.local.get(registeredOptions, function (options) {
                 for (const registeredOption of registeredOptions) {
                     const option = document.querySelector('#' + registeredOption);
-                    const item = items[registeredOption];
+                    const item = options[registeredOption];
                     if (item) {
                         option.value = item;
                     } else if (item == '' && option.tagName.toLowerCase() === 'select') {
@@ -214,6 +208,7 @@ let allowErase = false;
 
 function resetcache() {
     if (!displayActive) {
+        updateAnalytics();
         localStorage.setItem('cached', false);
         allowErase = false;
         showUpdate()
@@ -252,9 +247,9 @@ function erase(target) {
     setTimeout(() => {
         target.textContent = '';
         displayActive = false;
-        window.addEventListener('beforeunload', function () {
+        /*window.addEventListener('beforeunload', function () {
             return;
-        });
+        });*/
     }, 101 * updateMulti)
 }
 
@@ -278,6 +273,23 @@ function writeAndErase(target, write) {
     }, 101 * updateMulti)
 }
 
+function updateAnalytics() {
+    const analytics = document.querySelector('#analytics');
+    if (document.querySelector('#postanalyzer').value === 'false') {
+        analytics.setAttribute('disabled', 'disabled');
+    } else {
+        analytics.removeAttribute('disabled');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.querySelector('#save').addEventListener('click', saveOptions);
-setTimeout(saveOptions, 250);
+document.querySelector('#analytics').addEventListener('click', () => window.location.href = './analytics.html');
+chrome.storage.local.get('initialized', function (options) {
+    if (!options['initialized']) {
+        setTimeout(saveOptions, 250);
+        chrome.storage.local.set({
+            'initialized': true
+        });
+    }
+});

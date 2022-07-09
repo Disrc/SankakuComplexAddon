@@ -48,10 +48,7 @@ function handleChildren(conn, instantImageLoad) {
 function imageLoadHook(instantImageLoad, pageUpdateFix) {
     const targetNode = document.querySelectorAll('.content')[0];
     const pag = document.querySelectorAll('.pagination')[0];
-    if (!pag) {
-        return;
-    }
-
+    if (!pag || !targetNode) return;
     const config = {
         childList: true
     };

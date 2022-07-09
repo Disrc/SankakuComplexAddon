@@ -129,7 +129,7 @@ function betterScrollBar() {
 
 function constantAppearanceFixes() {
     // These are always loaded to core aspects of the site
-    const rankingThumbs = document.getElementsByClassName("ranking-thumbs");
+    const rankingThumbs = document.querySelectorAll(".ranking-thumbs");
     if (rankingThumbs) {
         for (const thumb of rankingThumbs) {
             thumb.style.width = "auto";
