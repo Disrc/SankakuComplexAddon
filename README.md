@@ -11,7 +11,7 @@ Note: If anyone finds this with an actual developer account feel free to upload 
 - Select the folder containing the 'manifest.json' file
 - Press enter and wait for it to finish loading
 
-## Script Execution Metrics [Outdated]
+## Script Execution Metrics (Outdated)
 
 ![One](https://user-images.githubusercontent.com/89601602/131110623-f9bed3c5-f3f0-478c-b32d-1efca3a2506c.PNG)
 ![Two](https://user-images.githubusercontent.com/89601602/131110627-ce340184-93c9-457e-b8f2-9507d04a94cd.PNG)
