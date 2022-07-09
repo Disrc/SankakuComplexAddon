@@ -2,6 +2,7 @@
 
 - *If anyone finds this with an actual developer account feel free to upload it*
 - *There is currently a small bug when both automatic login and automatic theme are enabled at the same time, it will be fixed in the next version (2.01)*
+- *The post analyzer is work in progress, there is no use to enabling it at the moment*
 
 ## How to install
 
