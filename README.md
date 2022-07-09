@@ -2,6 +2,7 @@
 
 - *If anyone finds this with an actual developer account feel free to upload it*
 - *The post analyzer is work in progress, there is no use to enabling it at the moment*
+- *Everything runs locally and no data is send to/received form any 3rd party*
 
 ## How to install
 
