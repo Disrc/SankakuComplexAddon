@@ -1,7 +1,7 @@
 {
     "name": "Sankaku Complex Addon",
     "description": "Addon for the legacy Sankaku Complex Website",
-    "version": "1.0",
+    "version": "2.2.1",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js"

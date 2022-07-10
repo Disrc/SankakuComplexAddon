@@ -104,16 +104,18 @@ function updatePostData(postData) {
 
 function forceTheme(theme) {
     const selected = document.querySelector('.theme-button-selected');
-    if (theme === 'light' && selected.classList.contains('theme-button-dark')) {
-        document.querySelector('.theme-button-light').click();
-    } else if (theme === 'dark' && selected.classList.contains('theme-button-light')) {
-        document.querySelector('.theme-button-dark').click();
+    if (selected) {
+        if (theme === 'light' && selected.classList.contains('theme-button-dark')) {
+            document.querySelector('.theme-button-light').click();
+        } else if (theme === 'dark' && selected.classList.contains('theme-button-light')) {
+            document.querySelector('.theme-button-dark').click();
+        }
     }
 }
 
 // Loader
 if (!window.location.href.includes('?cache') && window.settings['scahenabled']) {
-    if (window.settings['automaticlogic']) {
+    if (window.settings['automaticlogin']) {
         const automaticLoginEmail = window.settings['automaticloginemail'];
         const automaticLoginPassword = window.settings['automaticloginpassword'];
         if (automaticLoginEmail && automaticLoginPassword) {

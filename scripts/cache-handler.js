@@ -75,7 +75,7 @@ if (window.location.href.includes('?cache') || !localStorage.getItem('cached')) 
         'scahenabled',
         'forcethemeenabled',
         'forcethemetype',
-        'automaticlogic',
+        'automaticlogin',
         'automaticloginemail',
         'automaticloginpassword',
         'postanalyzer',
