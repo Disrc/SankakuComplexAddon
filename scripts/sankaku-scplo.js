@@ -1,6 +1,9 @@
 /*global chrome*/
 "use strict";
 
+// ! Performance analytics, comment out if not using
+const scploPerf = performance.now();
+
 // Modules
 function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
     const autoPaging = document.querySelector("#sc-auto-toggle");
@@ -64,13 +67,13 @@ function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
                     if (document.querySelector("#popular-preview")) {
                         let popularPreview = document.querySelector(`#popular-preview`);
                         let target = document.querySelector(`#content-page-${pagingAwaitId}`);
-                        target.parentNode.replaceChild(popularPreview, target.parentNode.children[0])
+                        target.parentNode.replaceChild(popularPreview, target.parentNode.children[0]);
                     } else {
                         let target = document.querySelector(`#content-page-${pagingAwaitId}`).parentNode.children[0];
                         target.remove();
                     }
                 } else {
-                    let target = document.querySelector(`#content-page-${pagingTargetId}`)
+                    let target = document.querySelector(`#content-page-${pagingTargetId}`);
                     target.remove();
                 }
                 pagingAwaitId += 1;
@@ -81,18 +84,19 @@ function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
 }
 
 function alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick) {
-    const img = document.querySelector('#image');
+    const image = document.querySelector('#image');
     let clicked = false;
 
-    if (img && img.tagName === 'IMG') {
-        img.click();
-        img.style.height = 'auto'
+    if (image && image.tagName === 'IMG') {
+        setTimeout(() => {
+            image.click();
+            image.style.height = 'auto';
+            if (maxImageSize) {
+                image.style.maxWidth = maxImageSize;
+            }
+        }, 0);
 
-        if (maxImageSize) {
-            img.style.maxWidth = maxImageSize;
-        }
-
-        img.addEventListener('click', (event) => {
+        image.addEventListener('click', (event) => {
             if (revertOnClick && clicked) {
                 event.target.style.maxWidth = maxImageSize || '';
                 clicked = false;
@@ -100,7 +104,7 @@ function alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick) {
                 event.target.style.maxWidth = imageClickSize || '';
                 clicked = true;
             }
-        })
+        });
     }
 }
 
@@ -173,30 +177,30 @@ function backgroundMode(tabOpeningMode) {
 }
 
 // Loader
-if (localStorage.getItem('scploenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
-    if (localStorage.getItem('optimizedpaging')) {
-        const pagingAwaitId = Number(localStorage.getItem('pagingawaitid'));
-        const pagingBatchCount = Number(localStorage.getItem('pagingbatchcount'));
-        const pagingTargetId = Number(localStorage.getItem('pagingtargetid'));
+if (!window.location.href.includes('?cache') && window.settings['scploenabled']) {
+    if (window.settings['optimizedpaging']) {
+        const pagingAwaitId = Number(window.settings['pagingawaitid']);
+        const pagingBatchCount = Number(window.settings['pagingbatchcount']);
+        const pagingTargetId = Number(window.settings['pagingtargetid']);
         optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId);
     }
-    if (localStorage.getItem('alternativeimagescaling')) {
-        const mis = Number(localStorage.getItem('maximagesize'));
+    if (window.settings['alternativeimagescaling']) {
+        const mis = Number(window.settings['maximagesize']);
         const maxImageSize = (mis === -1) ? '' : `${Number(mis)}%`;
-        const ics = Number(localStorage.getItem('imageclicksize'));
+        const ics = Number(window.settings['imageclicksize']);
         const imageClickSize = (ics === -1) ? '' : `${Number(ics)}%`;
-        const revertOnClick = (localStorage.getItem('revertonclick')) ? true : false;
+        const revertOnClick = (window.settings['revertonclick']) ? true : false;
         alternativeImageScaling(maxImageSize, imageClickSize, revertOnClick);
     }
-    if (localStorage.getItem('preventbackgroundcolorchange')) preventBackgroundColorChange();
-    if (localStorage.getItem('downloadmode')) downloadMode();
-    if (localStorage.getItem('backgroundmode')) {
-        const tabOpeningMode = localStorage.getItem('tabopeningmode');
+    if (window.settings['preventbackgroundcolorchange']) preventBackgroundColorChange();
+    if (window.settings['downloadmode']) downloadMode();
+    if (window.settings['backgroundmode']) {
+        const tabOpeningMode = window.settings['tabopeningmode'];
         backgroundMode(tabOpeningMode);
     }
 
     if (document.querySelector('#mode')) {
-        const mode = localStorage.getItem('mode');
+        const mode = window.settings['mode'];
         if (mode && mode !== 'undefined') {
             document.querySelector('#mode').value = mode;
         }
@@ -209,3 +213,6 @@ if (localStorage.getItem('scploenabled') && !window.location.href.includes('?cac
         }, true);
     }
 }
+
+// ! Performance analytics, comment out if not using
+console.log(`[SankakuAddon] sankaku-scplo took ${performance.now() - scploPerf}ms`);

@@ -1,7 +1,9 @@
 "use strict";
 
-// Modules
+// ! Performance analytics, comment out if not using
+const scmuPerf = performance.now();
 
+// Modules
 function alternateFavorite(noFavoriteHover) {
     if (window.location.href.includes('post/show')) {
         const addToFavorites = document.querySelector('#add-to-favs');
@@ -10,22 +12,22 @@ function alternateFavorite(noFavoriteHover) {
         if (noFavoriteHover) {
             addToFavorites.children[0].classList.remove('favoriteIcon');
             removeFromFavorites.children[0].classList.remove('favoriteIcon');
-            addToFavorites.children[0].style = 'width: 42px; height: 42px; margin-left: 64px; display: block; background-position: left top; cursor: pointer; background-image: url(//s.sankakucomplex.com/images/hearts.png);'
-            removeFromFavorites.children[0].style = 'width: 42px; height: 42px; margin-left: 64px; display: block; background-position:left bottom; cursor: pointer; background-image: url(//s.sankakucomplex.com/images/hearts.png);'
+            addToFavorites.children[0].style = 'width: 42px; height: 42px; margin-left: 64px; display: block; background-position: left top; cursor: pointer; background-image: url(//s.sankakucomplex.com/images/hearts.png);';
+            removeFromFavorites.children[0].style = 'width: 42px; height: 42px; margin-left: 64px; display: block; background-position:left bottom; cursor: pointer; background-image: url(//s.sankakucomplex.com/images/hearts.png);';
         }
 
         if (addToFavorites) {
             addToFavorites.addEventListener('click', () => {
                 addToFavorites.style.display = 'none';
                 removeFromFavorites.style.display = '';
-            })
+            });
         }
 
         if (removeFromFavorites) {
             removeFromFavorites.addEventListener('click', () => {
                 addToFavorites.style.display = '';
                 removeFromFavorites.style.display = 'none';
-            })
+            });
         }
     }
 }
@@ -71,9 +73,11 @@ function imageLoadHook(instantImageLoad, pageUpdateFix) {
                         pag.children[2].href = pag.children[2].href.replaceAll(`?page=${page + 1}`, `?page=${page + 2}`);
                         pag.children[1].textContent = ++page;
                         if (tryPageLoadFix) {
-                            tryPageLoadFix = false;
-                            console.log('test');
-                            document.querySelector('#pageloadfix').remove();
+                            const pageloadfix = document.querySelector('#pageloadfix');
+                            if (pageloadfix) {
+                                tryPageLoadFix = false;
+                                pageloadfix.remove();
+                            }
                         }
                     }
                 }
@@ -100,41 +104,44 @@ function tagTracker() {}
 */
 
 // Loader
-if (localStorage.getItem('scmuenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
-    if (localStorage.getItem('alternatefavorite')) {
-        const noFavoriteHover = (localStorage.getItem('nofavoritehover')) ? true : false;
+if (!window.location.href.includes('?cache') && window.settings['scmuenabled']) {
+    if (window.settings['alternatefavorite']) {
+        const noFavoriteHover = (window.settings['nofavoritehover']) ? true : false;
         alternateFavorite(noFavoriteHover);
     }
-    if (localStorage.getItem('automutevideo')) {
-        const customVideoVolume = (localStorage.getItem('customvideovolume') / 100);
+    if (window.settings['automutevideo']) {
+        const customVideoVolume = (window.settings['customvideovolume'] / 100);
         autoMuteVideo(customVideoVolume);
     }
-    if (localStorage.getItem('imageloadhook')) {
-        const instantImageLoad = (localStorage.getItem('instantimageload')) ? true : false;
-        const pageUpdateFix = (localStorage.getItem('pageupdatefix')) ? true : false;
+    if (window.settings['imageloadhook']) {
+        const instantImageLoad = (window.settings['instantimageload']) ? true : false;
+        const pageUpdateFix = (window.settings['pageupdatefix']) ? true : false;
         imageLoadHook(instantImageLoad, pageUpdateFix);
     }
 
     /*
-    const customImageHightlights = (localStorage.getItem('customimagehighlights')) ? true : false;
+    const customImageHightlights = (window.settings['customimagehighlights']) ? true : false;
 
-    if (localStorage.getItem('customtaghighlights')) {
+    if (window.settings['customtaghighlights']) {
         customTagHighlights();
     }
-    if (localStorage.getItem('customthresholds')) {
+    if (window.settings['customthresholds']) {
         customThresholds();
     }
-    if (localStorage.getItem('customshortcuts')) {
+    if (window.settings['customshortcuts']) {
         customShortcuts();
     }
-    if (localStorage.getItem('custommodecolors')) {
+    if (window.settings['custommodecolors']) {
         customModeColors();
     }
-    if (localStorage.getItem('userfollowing')) {
+    if (window.settings['userfollowing']) {
         userFollowing();
     }
-    if (localStorage.getItem('tagtracker')) {
+    if (window.settings['tagtracker']) {
         tagTracker();
     }
     */
 }
+
+// ! Performance analytics, comment out if not using
+console.log(`[SankakuAddon] sankaku-scmu took ${performance.now() - scmuPerf}ms`);

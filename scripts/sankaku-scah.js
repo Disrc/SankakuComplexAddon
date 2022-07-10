@@ -1,8 +1,13 @@
+/*global chrome*/
 "use strict";
+
+// ! Performance analytics, comment out if not using
+const scahPerf = performance.now();
 
 // Modules
 function automaticLogin(email, password) {
-    if (document.querySelector('#navbar').children[0].children[0].textContent.includes('Login')) {
+    const navbar = document.querySelector('#navbar');
+    if (navbar && navbar.children[0].children[0].textContent.includes('Login')) {
         if (window.location.href.includes('/user/login')) {
             const notice = document.querySelector('#notice');
             if (notice && notice.textContent.includes('Access denied')) {
@@ -20,18 +25,16 @@ function automaticLogin(email, password) {
             return false;
         }
     } else {
-        if (window.location.href.includes('/user/home')) {
-            if (document.querySelector('#notice').textContent.includes("You are now logged in")) {
-                window.location.href = localStorage.getItem('automaticLoginSource');
-                return false;
-            }
+        if (window.location.href.includes('/user/home') && document.querySelector('#notice').textContent.includes("You are now logged in")) {
+            window.location.href = localStorage.getItem('automaticLoginSource');
+            return false;
         }
         return true;
     }
 }
 
 function postAnalyzer(saveDate, update) {
-    const postId = Number(window.location.href.split('/post/show/')[1])
+    const postId = Number(window.location.href.split('/post/show/')[1]);
     chrome.storage.local.get(postId.toString(), (posts) => {
         const postData = posts[postId.toString()] ?? {};
         console.log('Fetched', postData);
@@ -85,16 +88,16 @@ function updatePost(saveDate, update, postId, postData) {
 }
 
 function updatePostData(postData) {
-    postData['copyright'] = []
-    postData['studio'] = []
-    postData['character'] = []
-    postData['artist'] = []
-    postData['medium'] = []
-    postData['general'] = []
-    postData['meta'] = []
-    postData['genre'] = []
+    postData['copyright'] = [];
+    postData['studio'] = [];
+    postData['character'] = [];
+    postData['artist'] = [];
+    postData['medium'] = [];
+    postData['general'] = [];
+    postData['meta'] = [];
+    postData['genre'] = [];
 
-    const tags = document.querySelector('#tag-sidebar')
+    const tags = document.querySelector('#tag-sidebar');
     for (const tag of tags.children) {
         const tagType = tag.classList[0].split('-')[2];
         const tagName = tag.children[0].textContent;
@@ -112,29 +115,32 @@ function forceTheme(theme) {
 }
 
 // Loader
-if (localStorage.getItem('scahenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
-    if (localStorage.getItem('automaticlogic')) {
-        const automaticLoginEmail = localStorage.getItem('automaticloginemail');
-        const automaticLoginPassword = localStorage.getItem('automaticloginpassword');
+if (!window.location.href.includes('?cache') && window.settings['scahenabled']) {
+    if (window.settings['automaticlogic']) {
+        const automaticLoginEmail = window.settings['automaticloginemail'];
+        const automaticLoginPassword = window.settings['automaticloginpassword'];
         if (automaticLoginEmail && automaticLoginPassword) {
             const loginCompleted = automaticLogin(automaticLoginEmail, automaticLoginPassword);
 
             // ? "Login completed" does not mean the user has actually logged in.
-            if (localStorage.getItem('forcethemeenabled') && loginCompleted) {
-                forceTheme(localStorage.getItem('forcethemetype'));
+            if (window.settings['forcethemeenabled'] && loginCompleted) {
+                forceTheme(window.settings['forcethemetype']);
             }
         }
     } else {
-        if (localStorage.getItem('forcethemeenabled')) {
-            forceTheme(localStorage.getItem('forcethemetype'));
+        if (window.settings['forcethemeenabled']) {
+            forceTheme(window.settings['forcethemetype']);
         }
     }
 
     setTimeout(() => {
-        if (localStorage.getItem('postanalyzer') && window.location.href.includes('/post/show')) {
-            const postAnalyzerDate = localStorage.getItem('postanalyzerdate') ? true : false;
-            const postAnalyzerUpdate = localStorage.getItem('postanalyzerupdate') ? true : false;
+        if (window.settings['postanalyzer'] && window.location.href.includes('/post/show')) {
+            const postAnalyzerDate = window.settings['postanalyzerdate'] ? true : false;
+            const postAnalyzerUpdate = window.settings['postanalyzerupdate'] ? true : false;
             postAnalyzer(postAnalyzerDate, postAnalyzerUpdate);
         }
     }, 0);
 }
+
+// ! Performance analytics, comment out if not using
+console.log(`[SankakuAddon] sankaku-scah took ${performance.now() - scahPerf}ms`);

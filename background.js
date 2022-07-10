@@ -2,10 +2,14 @@
 "use strict";
 
 chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.local.set({
+        'initialized': false
+    });
+
     if (chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage();
     }
-})
+});
 
 chrome.runtime.onMessage.addListener(function (message) {
     if (message.includes('open ')) {

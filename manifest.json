@@ -41,7 +41,7 @@
                 "https://wimg.rule34.xxx/*"
             ],
             "js": [
-                "scripts/cache-handler.js",
+                "scripts/external-cache-handler.js",
                 "scripts/sankaku-scsi.js"
             ]
         },

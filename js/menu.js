@@ -6,7 +6,7 @@
     const tabs = await chrome.tabs.query({
         active: true,
         currentWindow: true
-    })
+    });
 
     if (tabs.length === 0) return;
     if (tabs[0].url.includes('chan.sankakucomplex')) {

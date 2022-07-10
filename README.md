@@ -1,5 +1,6 @@
-# SankakuComplexAddon [![CodeFactor](https://www.codefactor.io/repository/github/disrc/sankakucomplexaddon/badge/main)](https://www.codefactor.io/repository/github/disrc/sankakucomplexaddon/overview/main) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c4f9fe122157426498d7502c792c214c)](https://www.codacy.com/gh/Disrc/SankakuComplexAddon/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Disrc/SankakuComplexAddon&amp;utm_campaign=Badge_Grade)
+# SankakuComplexAddon
 
+- **This extension is currently only works on the English version of the site.**
 - *If anyone finds this with an actual developer account feel free to upload it*
 - *The post analyzer is work in progress, there is no use to enabling it at the moment*
 - *Everything runs locally and no data is send to/received form any 3rd party*
@@ -20,7 +21,7 @@
 ## Feature list
 
 ```js
-// Sankaku Complex Appearance Modifier 
+// Sankaku Complex Appearance Modifier
 // ? Changes the appearance of the site to make it less cluttered.
 'scamenabled',
 'blockpendingposts',

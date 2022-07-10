@@ -23,6 +23,6 @@ module.exports = {
         "unicorn/prefer-module": "off",
         "sonarjs/cognitive-complexity": "off",
         "unicorn/prefer-add-event-listener": "off",
-        "semi": "always"
+        "semi": "error"
     }
 };

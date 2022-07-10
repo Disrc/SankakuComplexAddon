@@ -26,9 +26,10 @@ registerNewOption('SCAM', 'blockpreviews', ['true', 'false'], 'Block Previews', 
 registerNewOption('SCAM', 'clickableimages', ['false', 'true'], 'Clickable Images', 'Makes images Clickable (View Source);', true);
 registerNewOption('SCAM', 'cursorstyle', ['default', 'pointer'], 'Cursor Style', 'Changes Cursor Style for Images;', true);
 registerNewOption('SCAM', 'pageloadfix', ['true', 'false'], 'Page Load Fix', 'Fixes Auto Paging not working on small window sizes;', true);
-registerNewOption('SCAM', 'pageloadoffset', [500], 'Page Load Fix Offset', 'Offset value for page load fix to active [Default: 24.5"];', true, 'sub', 'input', {
+registerNewOption('SCAM', 'pageloadoffset', [90], 'Page Load Fix Offset', 'Offset value for the page load fix in vh%;', true, 'sub', 'input', {
     'type': 'number',
-    'min': '0'
+    'min': '0',
+    'max': '100'
 });
 registerNewOption('SCAM', 'betterscrollbar', ['true', 'false'], 'Better Scrollbar', 'Makes the scrollbar look better;', true);
 
@@ -155,7 +156,7 @@ function registerNewOption(module, id, inputs, name, desc, status, style = 'main
         }
 
         container.innerHTML = /*html*/
-            `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option ${status ? "" : "not "}implemented">{Status: <span class="${status ? "checkmark" : "cross"} ${style}-${status ? "checkmark" : "cross"}">✓</span>}</span></span>`
+            `<span class="option-name ${style}-name"> ‣ <label for="${id}">${name}:</label></span> <span class="option-con ${style}-con">${option}</span><span class="option-desc ${style}-desc"> » ${desc} <span class="status ${style}-status" title="Option ${status ? "" : "not "}implemented">{Status: <span class="${status ? "checkmark" : "cross"} ${style}-${status ? "checkmark" : "cross"}">✓</span>}</span></span>`;
 
         target.append(container);
         registeredOptions.push(id);
@@ -164,7 +165,7 @@ function registerNewOption(module, id, inputs, name, desc, status, style = 'main
     }
 }
 
-const subs = document.querySelectorAll('.sub-name')
+const subs = document.querySelectorAll('.sub-name');
 for (const sub of subs) {
     sub.innerHTML = "&emsp;" + sub.innerHTML.replace('‣', '•');
 
@@ -211,7 +212,7 @@ function resetcache() {
         updateAnalytics();
         localStorage.setItem('cached', false);
         allowErase = false;
-        showUpdate()
+        showUpdate();
         chrome.runtime.sendMessage('cache');
         setTimeout(() => {
             allowErase = true;
@@ -229,7 +230,7 @@ function showUpdate() {
 function erase(target) {
     if (!allowErase) {
         setTimeout(() => {
-            erase(target)
+            erase(target);
         }, 50);
         return;
     }
@@ -240,8 +241,8 @@ function erase(target) {
 
     for (let index = 1; index <= 100; index++) {
         setTimeout(() => {
-            target.style.opacity = `${100 - index}%`
-        }, index * updateMulti)
+            target.style.opacity = `${100 - index}%`;
+        }, index * updateMulti);
     }
 
     setTimeout(() => {
@@ -250,7 +251,7 @@ function erase(target) {
         /*window.addEventListener('beforeunload', function () {
             return;
         });*/
-    }, 101 * updateMulti)
+    }, 101 * updateMulti);
 }
 
 function writeAndErase(target, write) {
@@ -264,13 +265,13 @@ function writeAndErase(target, write) {
 
     for (let index = 1; index <= 100; index++) {
         setTimeout(() => {
-            target.style.opacity = `${index}%`
-        }, index * updateMulti)
+            target.style.opacity = `${index}%`;
+        }, index * updateMulti);
     }
 
     setTimeout(() => {
         erase(target);
-    }, 101 * updateMulti)
+    }, 101 * updateMulti);
 }
 
 function updateAnalytics() {

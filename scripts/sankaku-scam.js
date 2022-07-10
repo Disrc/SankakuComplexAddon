@@ -1,5 +1,8 @@
 "use strict";
 
+// ! Performance analytics, comment out if not using
+const scamPerf = performance.now();
+
 // Modules
 function blockPendingPosts() {
     const notice = document.querySelector("#pending-notice");
@@ -101,16 +104,15 @@ function clickableImages() {
 
 function pageLoadFix(offset) {
     if (document.querySelector('#paginator')) {
-        const plf = document.createElement('div');
-        plf.id = 'pageloadfix';
-        document.body.append(plf);
-
-        const content = document.querySelectorAll('.content')[0];
+        const content = document.querySelector('.content');
         if (content) {
-            const count = ((window.innerHeight - content.clientHeight) + offset) / 9;
-            for (let index = 0; index < count; index++) {
-                plf.append(document.createElement('br'));
-            }
+            const plf = document.createElement('div');
+            plf.id = 'pageloadfix';
+            plf.textContent = 'pageloadfix';
+            plf.style.minHeight = `${offset}vh`;
+            plf.style.backgroundSize = 'cover';
+            plf.style.opacity = '0';
+            document.body.append(plf);
         }
     }
 }
@@ -122,8 +124,7 @@ function betterScrollBar() {
     style.innerHTML = `::-webkit-scrollbar { width: 5px; !important }
     ::-webkit-scrollbar-track { background: #222; !important }
     ::-webkit-scrollbar-thumb { background: rgb(118, 118, 118); !important }
-    ::-webkit-scrollbar-thumb:hover { background: rgb(99, 98, 98); !important }`
-
+    ::-webkit-scrollbar-thumb:hover { background: rgb(99, 98, 98); !important }`;
     document.head.append(style);
 }
 
@@ -136,26 +137,50 @@ function constantAppearanceFixes() {
             thumb.style.display = "flex";
         }
     }
+
+    for (const item of document.querySelectorAll('font[color="red"')) {
+        const textContent = item.textContent;
+        if (textContent.includes("Sankaku Plus")) {
+            item.parentElement.remove();
+        } else {
+            item.parentNode.innerHTML = textContent;
+        }
+    }
+
+    const selectLang = document.querySelector("#lang-sel");
+    if (selectLang && selectLang.value != '/en') {
+        alert('SankakuAddon does not support non-English languages.\nChanging your language to English...');
+        selectLang.value = '/en';
+        selectLang.dispatchEvent(new Event('change'));
+    }
 }
 
 // Loader
-if (localStorage.getItem('scamenabled') && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
-    if (localStorage.getItem('blockpendingposts')) blockPendingPosts();
-    if (localStorage.getItem('blockmailnotice')) blockMailNotice();
-    if (localStorage.getItem('blocktopheader')) blockTopHeader();
-    if (localStorage.getItem('blocksitetitle')) blockSiteTitle();
-    if (localStorage.getItem('blocktopnavbar')) blockTopNavbar();
-    if (localStorage.getItem('blocksubnavbar')) blockSubNavbar();
-    if (localStorage.getItem('modifynavbar')) modifyNavbar();
-    if (localStorage.getItem('blockpreviews')) blockPreviews();
-    if (localStorage.getItem('clickableimages')) clickableImages();
-    if (localStorage.getItem('betterscrollbar')) betterScrollBar();
-    if (localStorage.getItem('pageloadfix')) {
-        const offset = Number(localStorage.getItem('pageloadoffset'));
-        pageLoadFix(offset);
-    }
+if (!window.location.href.includes('?cache') && window.settings['scamenabled']) {
+    if (window.settings['blockpendingposts']) blockPendingPosts();
+    if (window.settings['blockmailnotice']) blockMailNotice();
+    if (window.settings['blocktopheader']) blockTopHeader();
+    if (window.settings['blocksitetitle']) blockSiteTitle();
+    if (window.settings['blocktopnavbar']) blockTopNavbar();
+    if (window.settings['blocksubnavbar']) blockSubNavbar();
+    if (window.settings['modifynavbar']) modifyNavbar();
+    if (window.settings['blockpreviews']) blockPreviews();
+    if (window.settings['clickableimages']) clickableImages();
+    if (window.settings['betterscrollbar']) betterScrollBar();
 
-    const image = document.querySelector("#image");
-    if (image) image.style.cursorStyle = localStorage.getItem('cursorstyle');
-    constantAppearanceFixes();
+    setTimeout(() => {
+        const image = document.querySelector("#image");
+        if (image) image.style.cursorStyle = window.settings['cursorstyle'];
+        constantAppearanceFixes();
+    }, 0);
+
+    if (window.settings['pageloadfix']) {
+        setTimeout(() => {
+            const offset = Number(window.settings['pageloadoffset']);
+            pageLoadFix(offset);
+        }, 0);
+    }
 }
+
+// ! Performance analytics, comment out if not using
+console.log(`[SankakuAddon] sankaku-scam took ${performance.now() - scamPerf}ms`);

@@ -1,5 +1,8 @@
 "use strict";
 
+// ! Performance analytics, comment out if not using
+const scsiPerf = performance.now();
+
 // Modules
 function chanSiteRedirect() {
     if (window.location.href.includes('https://www.sankakucomplex.com')) {
@@ -33,7 +36,7 @@ function rule34pahealIntegration(rule34pahealDownload) {
         const split = window.location.href.split('/');
         const postId = split[split.length - 1].split('#')[0].split('?')[0];
         window.location.href = rule34pahealDownload ? `${file}?${tags}|${source}|${rating}|${file}|${postId}` : `https://chan.sankakucomplex.com/post/upload?${tags}|${source}|${rating}`;
-    })
+    });
     con.append(document.createElement('br'));
     con.append(sk);
 }
@@ -53,7 +56,7 @@ function rule34XXXIntegration(rule34XXXDownload) {
         const rating = document.querySelector('#stats').children[1].children[3].textContent;
         const postId = window.location.href.split('?')[1].split('&')[2].replaceAll('#', '').replaceAll('id=', '');
         window.location.href = rule34XXXDownload ? `${file}?${tags}|${source}|${rating}|${file}|${postId}` : `https://chan.sankakucomplex.com/post/upload?${tags}|${source}|${rating}`;
-    })
+    });
     con.append(sk);
 }
 
@@ -103,22 +106,25 @@ if (link.includes('chan.sankakucomplex.com/post/upload?')) {
 }
 
 // Loader
-if (localStorage.getItem('scsienabled') == 'true' && !window.location.href.includes('?cache') && localStorage.getItem('cached')) {
-    if (localStorage.getItem('rule34pahealintegration')) {
+if (!window.location.href.includes('?cache') && window.settings['scsienabled'] == 'true') {
+    if (window.settings['rule34pahealintegration']) {
         if (window.location.href.indexOf('https://rule34.paheal.net') === 0) {
-            const rule34pahealDownload = (localStorage.getItem('rule34pahealdownload')) ? true : false;
+            const rule34pahealDownload = (window.settings['rule34pahealdownload']) ? true : false;
             rule34pahealIntegration(rule34pahealDownload);
         } else if (window.location.href.includes('peach.paheal.net') || window.location.href.includes('holly.paheal.net')) {
             rule34pahealDownloader();
         }
     }
-    if (localStorage.getItem('rule34xxxintegration')) {
+    if (window.settings['rule34xxxintegration']) {
         if (window.location.href.indexOf('https://rule34.xxx/') === 0) {
-            const rule34XXXDownload = localStorage.getItem('rule34xxxdownload') ? true : false;
+            const rule34XXXDownload = window.settings['rule34xxxdownload'] ? true : false;
             rule34XXXIntegration(rule34XXXDownload);
         } else if (window.location.href.includes('img.rule34.xxx') || window.location.href.includes('wimg.rule34.xxx')) {
             rule34XXXDownloader();
         }
     }
-    if (localStorage.getItem('chansiteredirect')) chanSiteRedirect();
+    if (window.settings['chansiteredirect']) chanSiteRedirect();
 }
+
+// ! Performance analytics, comment out if not using
+console.log(`[SankakuAddon] sankaku-scsi took ${performance.now() - scsiPerf}ms`);
