@@ -18,7 +18,7 @@
 
 ![msedge_7eMbLYqFmX](https://user-images.githubusercontent.com/89601602/178148002-ff4dfdd5-43f4-4eca-82b9-1035aea506ac.png)
 
-Total: 2.5ms
+Total: 2.5ms (on average)
 
 ## Feature list
 
