@@ -1,9 +1,6 @@
 /*global chrome*/
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scahPerf = performance.now();
-
 // Modules
 function automaticLogin(email, password) {
     const navbar = document.querySelector('#navbar');
@@ -141,6 +138,3 @@ if (!window.location.href.includes('?cache') && window.settings['scahenabled']) 
         }
     }, 0);
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scah took ${performance.now() - scahPerf}ms`);

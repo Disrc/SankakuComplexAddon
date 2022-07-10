@@ -1,9 +1,6 @@
 /*global chrome*/
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scploPerf = performance.now();
-
 // Modules
 function optimizedPaging(pagingAwaitId, pagingBatchCount, pagingTargetId) {
     const autoPaging = document.querySelector("#sc-auto-toggle");
@@ -213,6 +210,3 @@ if (!window.location.href.includes('?cache') && window.settings['scploenabled'])
         }, true);
     }
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scplo took ${performance.now() - scploPerf}ms`);

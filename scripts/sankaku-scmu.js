@@ -1,8 +1,5 @@
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scmuPerf = performance.now();
-
 // Modules
 function alternateFavorite(noFavoriteHover) {
     if (window.location.href.includes('post/show')) {
@@ -142,6 +139,3 @@ if (!window.location.href.includes('?cache') && window.settings['scmuenabled']) 
     }
     */
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scmu took ${performance.now() - scmuPerf}ms`);

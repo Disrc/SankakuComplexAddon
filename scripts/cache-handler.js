@@ -1,9 +1,6 @@
 /*global chrome*/
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const cachePerf = performance.now();
-
 if (window.location.href.includes('?cache') || !localStorage.getItem('cached')) {
     window.onbeforeunload = function () {
         return true;
@@ -100,6 +97,3 @@ if (window.location.href.includes('?cache') || !localStorage.getItem('cached')) 
 } else {
     window['settings'] = JSON.parse(localStorage.getItem('settings'));
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] cache-handler took ${performance.now() - cachePerf}ms`);

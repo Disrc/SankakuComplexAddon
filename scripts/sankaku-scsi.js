@@ -1,8 +1,5 @@
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scsiPerf = performance.now();
-
 // Modules
 function chanSiteRedirect() {
     if (window.location.href.includes('https://www.sankakucomplex.com')) {
@@ -125,6 +122,3 @@ if (!window.location.href.includes('?cache') && window.settings['scsienabled'] =
     }
     if (window.settings['chansiteredirect']) chanSiteRedirect();
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scsi took ${performance.now() - scsiPerf}ms`);

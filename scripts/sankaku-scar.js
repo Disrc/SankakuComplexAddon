@@ -1,8 +1,5 @@
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scarPerf = performance.now();
-
 // Modules
 function blockSearchAds() {
     function removeSearchAds() {
@@ -67,6 +64,3 @@ if (!window.location.href.includes('?cache') && window.settings['scarenabled']) 
     if (window.settings['blockmediaads']) blockMediaAds();
     if (window.settings['blocknewsticker']) blockNewsTicker();
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scar took ${performance.now() - scarPerf}ms`);

@@ -1,8 +1,5 @@
 "use strict";
 
-// ! Performance analytics, comment out if not using
-const scamPerf = performance.now();
-
 // Modules
 function blockPendingPosts() {
     const notice = document.querySelector("#pending-notice");
@@ -181,6 +178,3 @@ if (!window.location.href.includes('?cache') && window.settings['scamenabled']) 
         }, 0);
     }
 }
-
-// ! Performance analytics, comment out if not using
-console.log(`[SankakuAddon] sankaku-scam took ${performance.now() - scamPerf}ms`);
