@@ -16,7 +16,9 @@
 
 ## Script Execution Metrics
 
-![16.9ms](https://user-images.githubusercontent.com/89601602/178114895-5bdf6223-ab3e-40b2-8b06-85ce48cb796d.png)
+![msedge_7eMbLYqFmX](https://user-images.githubusercontent.com/89601602/178148002-ff4dfdd5-43f4-4eca-82b9-1035aea506ac.png)
+
+Total: 2.5ms
 
 ## Feature list
 
